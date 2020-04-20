@@ -13,10 +13,8 @@ import com.example.pankkisovellus.User;
 
 public class CreateNewUser extends AppCompatActivity {
 
-
     public static EditText userName, firstName, lastName, dob, password, confirmPassword;
-    private static Context context;
-    DatabaseHelper db = new DatabaseHelper(context);
+    DatabaseHelper db = new DatabaseHelper(getBaseContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +41,5 @@ public class CreateNewUser extends AppCompatActivity {
             User user = new User(username, password_first, first_name, last_name, date_of_birth);
             db.newUser(user);
         }
-
-
-
     }
 }

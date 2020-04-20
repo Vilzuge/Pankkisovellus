@@ -2,6 +2,7 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void CreateUser(View v) {
-        Intent intent = new Intent(LoginActivity.this, CreateNewUser.class);
+        Intent intent = new Intent(getBaseContext(), CreateNewUser.class);
         startActivity(intent);
     }
 
