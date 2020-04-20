@@ -91,7 +91,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean newUser (User user) {
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(userUsername, user.getUserName());
         contentValues.put(userPassword, user.getPassword());

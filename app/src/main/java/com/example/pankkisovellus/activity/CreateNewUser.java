@@ -14,7 +14,7 @@ import com.example.pankkisovellus.User;
 public class CreateNewUser extends AppCompatActivity {
 
     public static EditText userName, firstName, lastName, dob, password, confirmPassword;
-    DatabaseHelper db = new DatabaseHelper(getBaseContext());
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,12 @@ public class CreateNewUser extends AppCompatActivity {
 
         if (password_first.equals(password_second)) {
             User user = new User(username, password_first, first_name, last_name, date_of_birth);
-            db.newUser(user);
+            System.out.println(user.getFirstName());
+            System.out.println(user.getLastName());
+            System.out.println(user.getDOB());
+            System.out.println(user.getPassword());
+            System.out.println(user.getUserName());
+            //boolean worked = databaseHelper.newUser(user);
         }
     }
 }
