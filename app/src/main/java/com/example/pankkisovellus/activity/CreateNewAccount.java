@@ -1,8 +1,10 @@
-package com.example.pankkisovellus;
+package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.pankkisovellus.R;
 
 public class CreateNewAccount extends AppCompatActivity {
 

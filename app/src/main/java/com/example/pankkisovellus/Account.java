@@ -1,41 +1,34 @@
 package com.example.pankkisovellus;
 
 public class Account {
-    private String userName;
-    private String userPassword;
-    private String userFirstName;
-    private String userLastName;
-    private String userDOB;
+    private String accountName;
+    private String accountType;
+    private String accountBalance;
+    private String accountLimit;
 
     public Account() {
-        userName = "null";
-        userPassword = "null";
-        userFirstName = "null";
-        userLastName = "null";
-        userDOB = "null";
+        accountName = "null";
+        accountType = "null";
+        accountBalance = "null";
+        accountLimit = "null";
     }
-    public Account(String user, String password, String firstname, String lastname, String dob) {
-        userName = user;
-        userPassword = password;
-        userFirstName = firstname;
-        userLastName = lastname;
-        userDOB = dob;
+    public Account(String accname, String acctype, String accbalance, String acclimit) {
+        accountName = accname;
+        accountType = acctype;
+        accountBalance = accbalance;
+        accountLimit = acclimit;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getAccountName() {
+        return accountName;
     }
-    public String getPassword() {
-        return userPassword;
+    public String getAccountType() {
+        return accountType;
     }
-    public String getFirstName() {
-        return userFirstName;
+    public String getAccountBalance() {
+        return accountBalance;
     }
-    public String getLastName() {
-        return userLastName;
+    public String getAccountLimit() {
+        return accountLimit;
     }
-    public String getDOB() {
-        return userDOB;
-    }
-
 }
