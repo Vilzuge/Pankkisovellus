@@ -1,5 +1,6 @@
 package com.example.pankkisovellus;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -88,8 +89,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void tryLogging() {
 
     }
-    public void addUser (String username, String password) {
 
+    public boolean newUser (User user) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(userUsername, user.getUserName());
+        contentValues.put(userPassword, user.getPassword());
+        contentValues.put(userFirstName, user.getFirstName());
+        contentValues.put(userLastName, user.getLastName());
+        contentValues.put(userDOB, user.getDOB());
+
+        long result = database.insert(tableUsers, null, contentValues);
+
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void addAdmin () {
