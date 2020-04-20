@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.UserInformation"></activity>
-        <activity android:name=".activity.CreateNewAccount" />
+        <activity android:name=".activity.CreateNewUser" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

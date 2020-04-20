@@ -32,10 +32,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String accountBalance = "ACCOUNTBALANCE";
     private static final String accountLimit = "ACCOUNTLIMIT";
 
+    private static int DATABASE_VERSION = 1;
+
+
+
     //Korteille omat muuttujat mahdollisesti!
 
     public DatabaseHelper(Context context) {
-        super(context, databaseName, null, 1);
+        super(context, databaseName, null, DATABASE_VERSION);
         database = getWritableDatabase();
     }
 
@@ -71,15 +75,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + tableUsers);
-        db.execSQL("DROP TABLE IF EXISTS " + tableAdmins);
-        db.execSQL("DROP TABLE IF EXISTS " + tableAccounts);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase db, int newVer, int oldVer) {
+        if (newVer > oldVer) {
+            db.execSQL("DROP TABLE IF EXISTS " + tableUsers);
+            db.execSQL("DROP TABLE IF EXISTS " + tableAdmins);
+            db.execSQL("DROP TABLE IF EXISTS " + tableAccounts);
+            onCreate(db);
+        }
     }
 
     //Näihin vielä parametreiksi käyttäjä oliot
-    public void addUser () {
+    public void tryLogging() {
+
+    }
+    public void addUser (String username, String password) {
 
     }
 
