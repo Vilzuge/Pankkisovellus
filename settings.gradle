@@ -1,0 +1,2 @@
+rootProject.name='Pankkisovellus'
+include ':app'
