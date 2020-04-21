@@ -27,6 +27,8 @@ public class CreateNewUser extends AppCompatActivity {
         lastName = (EditText) findViewById(R.id.editLastName);
         dob = (EditText) findViewById(R.id.editDOB);
         confirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
+
+        databaseHelper = new DatabaseHelper(this);
     }
 
     public void createAccount(View v) {
@@ -44,7 +46,7 @@ public class CreateNewUser extends AppCompatActivity {
             System.out.println(user.getDOB());
             System.out.println(user.getPassword());
             System.out.println(user.getUserName());
-            //boolean worked = databaseHelper.newUser(user);
+            boolean worked = databaseHelper.newUser(user);
         }
     }
 }
