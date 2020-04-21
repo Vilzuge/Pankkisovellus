@@ -2,9 +2,13 @@ package com.example.pankkisovellus;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.pankkisovellus.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -87,8 +91,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Näihin vielä parametreiksi käyttäjä oliot
-    public void tryLogging() {
 
+    public boolean tryLogging(String signingUsername, String signingPassword) {
+
+       Cursor cursor = database.rawQuery("SELECT * FROM " + tableUsers + " WHERE " + userUsername + "=? AND " + userPassword + "=?", new String[]{signingUsername,signingPassword});
+       if (cursor != null) {
+           if(cursor.getCount() > 0) {
+               return true;
+           }
+       }
+       return false;
     }
 
     public boolean newUser (User user) {
