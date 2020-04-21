@@ -29,14 +29,17 @@ public class LoginActivity extends AppCompatActivity {
     public void Login(View w) {
         String userUsername = username.getText().toString();
         String userPassword = password.getText().toString();
-
-        if (databaseHelper.tryLogging(userUsername, userPassword)) {
-            Toast.makeText(LoginActivity.this,"Successfully Logged In", Toast.LENGTH_LONG).show();
+        try {
+            if (userUsername.length() > 0 && userPassword.length() > 0) {
+                if (databaseHelper.tryLogging(userUsername, userPassword)) {
+                    Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
+                }
+            }
+        } catch(Exception e){
+            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        else {
-            Toast.makeText(LoginActivity.this,"Invalid Username/Password", Toast.LENGTH_LONG).show();
-        }
-
     }
 
     public void CreateUser(View v) {
