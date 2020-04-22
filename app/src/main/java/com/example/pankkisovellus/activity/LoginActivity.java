@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                 //If the object was returned, log the user in.
                 if (databaseHelper.tryLogging(userUsername, userPassword) != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
-                    //Logging the user in to the mainscreen
+                    //Logging the user to the dashboard with the object of their information
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
                 }

@@ -18,6 +18,19 @@ public class Account {
         accountBalance = accbalance;
         accountLimit = acclimit;
     }
+    public void setAccountName(String name) {
+        accountName = name;
+    }
+    public void setAccountType(String type) {
+        accountType = type;
+    }
+    public void setAccountBalance(String balance) {
+        accountBalance = balance;
+    }
+    public void setAccountLimit(String limit) {
+        accountLimit = limit;
+    }
+
 
     public String getAccountName() {
         return accountName;

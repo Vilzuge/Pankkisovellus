@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
@@ -32,6 +33,7 @@ public class CreateNewUser extends AppCompatActivity {
     }
 
     public void createAccount(View v) {
+
         String username = userName.getText().toString();
         String password_first = password.getText().toString();
         String password_second = confirmPassword.getText().toString();
@@ -39,6 +41,7 @@ public class CreateNewUser extends AppCompatActivity {
         String last_name = lastName.getText().toString();
         String date_of_birth = dob.getText().toString();
 
+        //Lets check if the passwords were identical and create an user object of the data
         if (password_first.equals(password_second)) {
             User user = new User(username, password_first, first_name, last_name, date_of_birth);
             System.out.println(user.getFirstName());
@@ -47,6 +50,12 @@ public class CreateNewUser extends AppCompatActivity {
             System.out.println(user.getPassword());
             System.out.println(user.getUserName());
             boolean worked = databaseHelper.newUser(user);
+
+            if (worked == true) {
+                Toast.makeText(CreateNewUser.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(CreateNewUser.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

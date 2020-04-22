@@ -8,9 +8,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loginille tästä napista (väliaikanen)"
+        android:layout_width="326dp"
+        android:layout_height="53dp"
+        android:text='Tämä on käytännössä turha, pidän sen vielä täällä kansioissa jos tuleekin ilmi, että tämä "MainActivity" on pakollinen jostain syystä.'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="loadLogin"
-        android:text="Nabbi"
+        android:text=":)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

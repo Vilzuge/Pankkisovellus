@@ -12,7 +12,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
-
     SQLiteDatabase database;
     private static final String databaseName = "database.db";
 
@@ -36,7 +35,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String accountBalance = "ACCOUNTBALANCE";
     private static final String accountLimit = "ACCOUNTLIMIT";
 
-    private static int DATABASE_VERSION = 1;
+    private static final String tableCards = "CARDS";
+    private static final String cardId = "CARDID";
+    private static final String cardHolder = "HOLDERNAME";
+    private static final String cardAccount = "ACCOUNTNAME";
+    private static final String cardType = "CARDTYPE";
+
+    private static int DATABASE_VERSION = 2;
 
 
 
@@ -73,7 +78,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 accountLimit + " TEXT)";
         db.execSQL(createAccountTable);
 
-        //Tähän vielä lisäksi mahdollisesti kortteja varten omat pöydät
+        String createCardTable = "CREATE TABLE " + tableCards + " (" +
+                cardId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                cardHolder + " INT, " +
+                cardAccount + " INT, " +
+                cardType + " TEXT)";
+        db.execSQL(createCardTable);
 
 
     }
@@ -84,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + tableUsers);
             db.execSQL("DROP TABLE IF EXISTS " + tableAdmins);
             db.execSQL("DROP TABLE IF EXISTS " + tableAccounts);
+            db.execSQL("DROP TABLE IF EXISTS " + tableCards);
             onCreate(db);
         }
     }
@@ -124,7 +135,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(userDOB, user.getDOB());
 
         long result = database.insert(tableUsers, null, contentValues);
-
         if (result == -1) {
             return false;
         } else {
