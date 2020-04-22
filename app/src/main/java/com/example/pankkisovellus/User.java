@@ -22,6 +22,23 @@ public class User {
         userDOB = dob;
     }
 
+
+    public void setUserName(String username) {
+        userName = username;
+    }
+    public void setPassword(String password) {
+        userPassword = password;
+    }
+    public void setFirstName(String firstname) {
+        userFirstName = firstname;
+    }
+    public void setLastName(String lastname) {
+        userLastName = lastname;
+    }
+    public void setDOB(String dob) {
+        userDOB = dob;
+    }
+
     public String getUserName() {
         return userName;
     }

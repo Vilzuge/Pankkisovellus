@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.pankkisovellus.User;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -92,15 +90,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Näihin vielä parametreiksi käyttäjä oliot
 
-    public boolean tryLogging(String signingUsername, String signingPassword) {
-
-       Cursor cursor = database.rawQuery("SELECT * FROM " + tableUsers + " WHERE " + userUsername + "=? AND " + userPassword + "=?", new String[]{signingUsername,signingPassword});
-       if (cursor != null) {
+    public User tryLogging(String signingUsername, String signingPassword) {
+        //Creating an empty User object first.
+        User user = new User();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + tableUsers + " WHERE " + userUsername + "=? AND " + userPassword + "=?", new String[]{signingUsername,signingPassword});
+        if (cursor != null) {
            if(cursor.getCount() > 0) {
-               return true;
+               String username = cursor.getString(cursor.getColumnIndexOrThrow(userUsername));
+               String password = cursor.getString(cursor.getColumnIndexOrThrow(userPassword));
+               String firstname = cursor.getString(cursor.getColumnIndexOrThrow(userFirstName));
+               String lastname = cursor.getString(cursor.getColumnIndexOrThrow(userLastName));
+               String dob = cursor.getString(cursor.getColumnIndexOrThrow(userDOB));
+
+               //Setting the data from the database to the object
+               user.setUserName(username);
+               user.setPassword(password);
+               user.setFirstName(firstname);
+               user.setLastName(lastname);
+               user.setDOB(dob);
+
+               return user;
            }
        }
-       return false;
+       return null;
     }
 
     public boolean newUser (User user) {

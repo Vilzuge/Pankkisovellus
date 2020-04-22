@@ -31,8 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         String userPassword = password.getText().toString();
         try {
             if (userUsername.length() > 0 && userPassword.length() > 0) {
-                if (databaseHelper.tryLogging(userUsername, userPassword)) {
+                //If the object was returned, log the user in.
+                if (databaseHelper.tryLogging(userUsername, userPassword) != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+                    //Logging the user in to the mainscreen
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
                 }
