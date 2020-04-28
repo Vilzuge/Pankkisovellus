@@ -3,6 +3,7 @@ package com.example.pankkisovellus;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.pankkisovellus.User;
@@ -12,7 +13,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
-    SQLiteDatabase database;
     private static final String databaseName = "database.db";
 
     private static final String tableUsers = "USERS";
@@ -30,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String tableAccounts = "ACCOUNTS";
     private static final String accountId = "ACCOUNTID";
+    private static final String accountHolder = "ACCOUNTHOLDER";
     private static final String accountName = "ACCOUNTNAME";
     private static final String accountType = "ACCOUNTTYPE";
     private static final String accountBalance = "ACCOUNTBALANCE";
@@ -41,11 +42,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String cardAccount = "ACCOUNTNAME";
     private static final String cardType = "CARDTYPE";
 
-    private static int DATABASE_VERSION = 2;
+    private SQLiteDatabase database;
+    private static int DATABASE_VERSION = 13;
 
-
-
-    //Korteille omat muuttujat mahdollisesti!
 
     public DatabaseHelper(Context context) {
         super(context, databaseName, null, DATABASE_VERSION);
@@ -72,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String createAccountTable = "CREATE TABLE " + tableAccounts + " (" +
                 accountId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                accountHolder + " INT, " +
                 accountName + " TEXT, " +
                 accountType + " TEXT, " +
                 accountBalance + " TEXT, " +
@@ -89,41 +89,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int newVer, int oldVer) {
-        if (newVer > oldVer) {
-            db.execSQL("DROP TABLE IF EXISTS " + tableUsers);
-            db.execSQL("DROP TABLE IF EXISTS " + tableAdmins);
-            db.execSQL("DROP TABLE IF EXISTS " + tableAccounts);
-            db.execSQL("DROP TABLE IF EXISTS " + tableCards);
-            onCreate(db);
-        }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        db.execSQL("DROP TABLE IF EXISTS " + tableUsers);
+        db.execSQL("DROP TABLE IF EXISTS " + tableAdmins);
+        db.execSQL("DROP TABLE IF EXISTS " + tableAccounts);
+        db.execSQL("DROP TABLE IF EXISTS " + tableCards);
+        onCreate(db);
+
     }
 
-    //Näihin vielä parametreiksi käyttäjä oliot
-
-    public User tryLogging(String signingUsername, String signingPassword) {
+    public User tryLogging(String signingUsername, String signingPassword) throws SQLException {
         //Creating an empty User object first.
         User user = new User();
         Cursor cursor = database.rawQuery("SELECT * FROM " + tableUsers + " WHERE " + userUsername + "=? AND " + userPassword + "=?", new String[]{signingUsername,signingPassword});
-        if (cursor != null) {
-           if(cursor.getCount() > 0) {
-               String username = cursor.getString(cursor.getColumnIndexOrThrow(userUsername));
-               String password = cursor.getString(cursor.getColumnIndexOrThrow(userPassword));
-               String firstname = cursor.getString(cursor.getColumnIndexOrThrow(userFirstName));
-               String lastname = cursor.getString(cursor.getColumnIndexOrThrow(userLastName));
-               String dob = cursor.getString(cursor.getColumnIndexOrThrow(userDOB));
 
-               //Setting the data from the database to the object
-               user.setUserName(username);
-               user.setPassword(password);
-               user.setFirstName(firstname);
-               user.setLastName(lastname);
-               user.setDOB(dob);
+        cursor.moveToFirst();
+        if (signingUsername.equals(cursor.getString(cursor.getColumnIndexOrThrow(userUsername))) && signingPassword.equals(cursor.getString(cursor.getColumnIndexOrThrow(userPassword))))  {
+            String username = cursor.getString(cursor.getColumnIndexOrThrow(userUsername));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow(userPassword));
+            String firstname = cursor.getString(cursor.getColumnIndexOrThrow(userFirstName));
+            String lastname = cursor.getString(cursor.getColumnIndexOrThrow(userLastName));
+            String dob = cursor.getString(cursor.getColumnIndexOrThrow(userDOB));
 
-               return user;
-           }
-       }
-       return null;
+            //Setting the data from the database to the object
+            user.setUserName(username);
+            user.setPassword(password);
+            user.setFirstName(firstname);
+            user.setLastName(lastname);
+            user.setDOB(dob);
+            return user;
+        }
+        else {
+            return null;
+        }
     }
 
     public boolean newUser (User user) {

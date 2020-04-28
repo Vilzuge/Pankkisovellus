@@ -29,7 +29,7 @@ public class CreateNewUser extends AppCompatActivity {
         dob = (EditText) findViewById(R.id.editDOB);
         confirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(CreateNewUser.this);
     }
 
     public void createAccount(View v) {

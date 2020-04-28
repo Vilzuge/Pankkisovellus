@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         username = (EditText) findViewById(R.id.editUsername);
         password = (EditText) findViewById(R.id.editPassword);
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(LoginActivity.this);
     }
 
     public void Login(View w) {
@@ -35,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (databaseHelper.tryLogging(userUsername, userPassword) != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
                     //Logging the user to the dashboard with the object of their information
+                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
                 }
