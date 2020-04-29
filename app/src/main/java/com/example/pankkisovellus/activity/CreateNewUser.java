@@ -2,7 +2,6 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -22,9 +21,9 @@ public class CreateNewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_user);
 
-        userName = (EditText) findViewById(R.id.editUsername);
+        userName = (EditText) findViewById(R.id.editPaymentLimit);
         password = (EditText) findViewById(R.id.editPassword);
-        firstName = (EditText) findViewById(R.id.editFirstName);
+        firstName = (EditText) findViewById(R.id.editAccountName);
         lastName = (EditText) findViewById(R.id.editLastName);
         dob = (EditText) findViewById(R.id.editDOB);
         confirmPassword = (EditText) findViewById(R.id.editConfirmPassword);
@@ -52,9 +51,9 @@ public class CreateNewUser extends AppCompatActivity {
             boolean worked = databaseHelper.newUser(user);
 
             if (worked == true) {
-                Toast.makeText(CreateNewUser.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateNewUser.this,"Successfully created an user.", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(CreateNewUser.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateNewUser.this,"Creating an user failed.", Toast.LENGTH_LONG).show();
             }
         }
     }

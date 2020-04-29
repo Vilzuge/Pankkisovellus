@@ -31,4 +31,10 @@ public class Dashboard extends AppCompatActivity {
         intent.putExtra("user", user);
         startActivity(intent);
     }
+
+    public void accountInformation(View v) {
+        Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
 }

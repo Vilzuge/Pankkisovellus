@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String cardType = "CARDTYPE";
 
     private SQLiteDatabase database;
-    private static int DATABASE_VERSION = 13;
+    private static int DATABASE_VERSION = 14;
 
 
     public DatabaseHelper(Context context) {
@@ -74,8 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 accountHolder + " INT, " +
                 accountName + " TEXT, " +
                 accountType + " TEXT, " +
-                accountBalance + " TEXT, " +
-                accountLimit + " TEXT)";
+                accountBalance + " FLOAT, " +
+                accountLimit + " FLOAT)";
         db.execSQL(createAccountTable);
 
         String createCardTable = "CREATE TABLE " + tableCards + " (" +
@@ -173,12 +173,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean newAccount (Account account) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(accountHolder, account.getAccountHolder());
+        contentValues.put(accountName, account.getAccountName());
+        contentValues.put(accountType, account.getAccountType());
+        contentValues.put(accountBalance, account.getAccountBalance());
+        contentValues.put(accountLimit, account.getAccountLimit());
 
-    public void addAdmin () {
-
-    }
-
-    public void addAccount () {
+        long result = database.insert(tableAccounts, null, contentValues);
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
 
     }
 

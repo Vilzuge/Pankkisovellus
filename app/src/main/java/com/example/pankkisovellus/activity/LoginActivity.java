@@ -2,7 +2,6 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText) findViewById(R.id.editUsername);
+        username = (EditText) findViewById(R.id.editPaymentLimit);
         password = (EditText) findViewById(R.id.editPassword);
         databaseHelper = new DatabaseHelper(LoginActivity.this);
     }

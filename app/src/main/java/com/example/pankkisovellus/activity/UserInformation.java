@@ -26,9 +26,9 @@ public class UserInformation extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("user");
         databaseHelper = new DatabaseHelper(UserInformation.this);
 
-        editFirstName = (EditText) findViewById(R.id.editFirstName);
+        editFirstName = (EditText) findViewById(R.id.editAccountName);
         editLastName = (EditText) findViewById(R.id.editLastName);
-        editUsername = (EditText) findViewById(R.id.editUsername);
+        editUsername = (EditText) findViewById(R.id.editPaymentLimit);
         editDOB = (EditText) findViewById(R.id.editDOB);
 
         editFirstName.setText(user.getFirstName());
