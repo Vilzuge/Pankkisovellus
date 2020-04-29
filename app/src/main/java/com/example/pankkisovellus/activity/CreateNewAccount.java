@@ -61,8 +61,6 @@ public class CreateNewAccount extends AppCompatActivity {
         });
     }
 
-
-
     public void CreateAccount(View v) {
         accountId = 0;
         accountHolder = user.getUserId();

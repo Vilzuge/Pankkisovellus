@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.pankkisovellus.User;
 
+import java.util.ArrayList;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -187,6 +189,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return true;
         }
+
+    }
+
+    public ArrayList<Account> fetchUserAccounts (User user) {
+        int id = user.getUserId();
+        ArrayList<Account> account_array = new ArrayList<Account>();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + tableAccounts + " WHERE " + accountHolder + "=?", new String[]{ Integer.toString(id) } );
+
+        while( cursor.moveToNext() ) {
+            int tempId = cursor.getInt(cursor.getColumnIndexOrThrow(accountId));
+            int tempHolder = cursor.getInt(cursor.getColumnIndexOrThrow(accountHolder));
+            String tempName = cursor.getString(cursor.getColumnIndexOrThrow(accountName));
+            String tempType = cursor.getString(cursor.getColumnIndexOrThrow(accountType));
+            float tempBalance = cursor.getFloat(cursor.getColumnIndexOrThrow(accountBalance));
+            float tempLimit = cursor.getFloat(cursor.getColumnIndexOrThrow(accountLimit));
+
+            Account account = new Account(tempId, tempHolder, tempName, tempType, tempBalance, tempLimit);
+            account_array.add(account);
+        }
+
+        return account_array;
 
     }
 
