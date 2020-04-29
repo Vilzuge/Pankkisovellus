@@ -106,6 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         if (signingUsername.equals(cursor.getString(cursor.getColumnIndexOrThrow(userUsername))) && signingPassword.equals(cursor.getString(cursor.getColumnIndexOrThrow(userPassword))))  {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(userId));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(userUsername));
             String password = cursor.getString(cursor.getColumnIndexOrThrow(userPassword));
             String firstname = cursor.getString(cursor.getColumnIndexOrThrow(userFirstName));
@@ -113,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String dob = cursor.getString(cursor.getColumnIndexOrThrow(userDOB));
 
             //Setting the data from the database to the object
+            user.setUserId(id);
             user.setUserName(username);
             user.setPassword(password);
             user.setFirstName(firstname);
@@ -140,6 +142,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public User alterUser(User tempUser) {
+        int id = tempUser.getUserId();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(userFirstName, tempUser.getFirstName());
+        contentValues.put(userLastName, tempUser.getLastName());
+        contentValues.put(userUsername, tempUser.getUserName());
+        contentValues.put(userDOB, tempUser.getDOB());
+
+
+
+        String selection = userId + " LIKE ?";
+        String[] selectionArgs = { Integer.toString( id ) };
+
+        int count = database.update(
+                tableUsers,
+                contentValues,
+                selection,
+                selectionArgs
+        );
+
+        if (count == 1) {
+            return tempUser;
+        }
+        else {
+            return null;
+        }
+
+
+    }
+
 
     public void addAdmin () {
 

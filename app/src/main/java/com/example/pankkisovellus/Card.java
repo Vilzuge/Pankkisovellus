@@ -19,6 +19,7 @@ public class Card {
         cardBalance = balance;
         cardLimit = limit;
     }
+
     public void setCardName(String name) {
         cardName = name;
     }

@@ -11,11 +11,13 @@ import android.widget.Toast;
 
 import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
+import com.example.pankkisovellus.User;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static EditText username, password;
     DatabaseHelper databaseHelper;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         try {
             if (userUsername.length() > 0 && userPassword.length() > 0) {
                 //If the object was returned, log the user in.
-                if (databaseHelper.tryLogging(userUsername, userPassword) != null) {
+                user = databaseHelper.tryLogging(userUsername, userPassword);
+                if (user != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
                     //Logging the user to the dashboard with the object of their information
                     Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
@@ -50,5 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), CreateNewUser.class);
         startActivity(intent);
     }
+
 
 }

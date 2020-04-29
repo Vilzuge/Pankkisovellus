@@ -43,7 +43,7 @@ public class CreateNewUser extends AppCompatActivity {
 
         //Lets check if the passwords were identical and create an user object of the data
         if (password_first.equals(password_second)) {
-            User user = new User(username, password_first, first_name, last_name, date_of_birth);
+            User user = new User(0, username, password_first, first_name, last_name, date_of_birth);
             System.out.println(user.getFirstName());
             System.out.println(user.getLastName());
             System.out.println(user.getDOB());
