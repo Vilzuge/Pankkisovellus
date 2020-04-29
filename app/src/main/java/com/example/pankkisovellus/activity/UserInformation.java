@@ -3,7 +3,9 @@ package com.example.pankkisovellus.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
@@ -36,7 +38,7 @@ public class UserInformation extends AppCompatActivity {
 
     }
 
-    public void changeInformation() {
+    public void changeInformation(View v) {
         userid = user.getUserId();
         userName = editUsername.getText().toString();
         userPassword = user.getPassword();
@@ -47,9 +49,11 @@ public class UserInformation extends AppCompatActivity {
         User tempUser = new User(userid, userName, userPassword, firstName, lastName, userDOB);
 
         if (databaseHelper.alterUser(tempUser) != null){
+            Toast.makeText(UserInformation.this, "Successfully changed information.", Toast.LENGTH_LONG).show();
             user = tempUser;
         }
         else {
+            Toast.makeText(UserInformation.this, "Changing user information failed.", Toast.LENGTH_LONG).show();
             user = user;
         }
 
