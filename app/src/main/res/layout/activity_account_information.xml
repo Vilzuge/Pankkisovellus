@@ -10,7 +10,7 @@
         android:id="@+id/textAccounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="64dp"
         android:text="Accounts"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,20 +31,22 @@
         android:id="@+id/buttonCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="40dp"
         android:onClick="createNewAccount"
         android:text="Create a new account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAccounts" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="339dp"
-        android:layout_height="335dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="380dp"
+        android:layout_height="235dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonNewPayment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount"
+        app:layout_constraintVertical_bias="0.492" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

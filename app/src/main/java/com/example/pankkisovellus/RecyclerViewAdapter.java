@@ -24,18 +24,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view = LayoutInflater.from(parent.getContext()).inflate();
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        holder.accountName.setText(account_array.get(position).getAccountName());
+        holder.accountBalance.setText(Float.toString(account_array.get(position).getAccountBalance()));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return account_array.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
