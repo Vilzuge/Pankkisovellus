@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NewPayment"></activity>
+        <activity android:name=".activity.DepositOrWithdraw"></activity>
+        <activity android:name=".activity.NewPayment" />
         <activity android:name=".activity.CreateNewAccount" />
         <activity android:name=".activity.AccountInformation" />
         <activity android:name=".activity.Dashboard" />

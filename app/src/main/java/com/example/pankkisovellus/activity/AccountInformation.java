@@ -60,7 +60,9 @@ public class AccountInformation extends AppCompatActivity {
     }
 
     public void newPayment(View v) {
-        //Tähän siirtyminen maksuihin
+        Intent intent = new Intent(getBaseContext(), NewPayment.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
 
