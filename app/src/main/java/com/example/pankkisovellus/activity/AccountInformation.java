@@ -50,9 +50,6 @@ public class AccountInformation extends AppCompatActivity {
 
     }
 
-
-
-
     public void createNewAccount(View v) {
         Intent intent = new Intent(getBaseContext(), CreateNewAccount.class);
         intent.putExtra("user", user);

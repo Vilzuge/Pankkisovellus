@@ -80,7 +80,6 @@ public class DepositOrWithdraw extends AppCompatActivity {
     public void executeAction(View v) {
         float amount = Float.parseFloat(editAmount.getText().toString());
         databaseHelper.depositOrWithdraw(user, account, actionValue, amount);
-
     }
 
 

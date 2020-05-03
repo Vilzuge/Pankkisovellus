@@ -104,7 +104,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public User tryLogging(String signingUsername, String signingPassword) throws SQLException {
         //Creating an empty User object first.
         User user = new User();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + tableUsers + " WHERE " + userUsername + "=? AND " + userPassword + "=?", new String[]{signingUsername,signingPassword});
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                tableUsers + " WHERE " +
+                userUsername + "=? AND " +
+                userPassword + "=?", new String[]{signingUsername,signingPassword});
 
         cursor.moveToFirst();
         if (signingUsername.equals(cursor.getString(cursor.getColumnIndexOrThrow(userUsername))) && signingPassword.equals(cursor.getString(cursor.getColumnIndexOrThrow(userPassword))))  {
@@ -215,22 +218,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void depositOrWithdraw(User user, Account account, String action, float amount) {
         int id = user.getUserId();
-        float oldBalance = 0, newBalance;
 
         if (action.equals("Withdraw")) {
             amount = amount * (-1);
         }
 
-        Cursor cursor = database.rawQuery("SELECT * FROM " +
-                        tableAccounts + " WHERE " +
-                        accountHolder + "=? AND " +
-                        accountName + "=?",
-                        new String[]{Integer.toString(id), account.getAccountName()});
-
-        while( cursor.moveToNext() ) {
-            oldBalance = cursor.getFloat(cursor.getColumnIndexOrThrow(accountBalance));
-        }
-        newBalance = amount + oldBalance;
+        float oldBalance = account.getAccountBalance();
+        float newBalance = oldBalance + amount;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(accountBalance, newBalance);
@@ -244,5 +238,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs
         );
+    }
+
+    public void transferMoney(Account account, String receiverAccount, String receiverUser, float amount) {
+
+        float payerOldBalance = account.getAccountBalance();
+        float payerNewBalance = payerOldBalance - amount;
+        float receiverOldBalance = 0;
+        float receiverNewBalance = 0;
+        int receiverId = 0, receiverAccountId = 0;
+
+        //Withdrawing the money from payer's account
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(accountBalance, payerNewBalance);
+        String selection = accountId + " LIKE ?";
+        String[] selectionArgs = { Integer.toString( account.getAccountId() ) };
+        int count = database.update(
+                tableAccounts,
+                contentValues,
+                selection,
+                selectionArgs
+        );
+
+        //Figuring out the ID behind the username
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ receiverUser });
+
+        while( cursor.moveToNext() ) {
+            receiverId = cursor.getInt(cursor.getColumnIndexOrThrow(userId));
+        }
+
+        //Figuring out the receivers account's balance
+        cursor = database.rawQuery("SELECT * FROM " +
+                        tableAccounts + " WHERE " +
+                        accountHolder + "=? AND " +
+                        accountName + "=?",
+                new String[]{Integer.toString(receiverId), receiverAccount});
+
+        while( cursor.moveToNext() ) {
+            receiverOldBalance = cursor.getFloat(cursor.getColumnIndexOrThrow(accountBalance));
+            receiverAccountId = cursor.getInt(cursor.getColumnIndexOrThrow(accountId));
+        }
+
+        receiverNewBalance = receiverOldBalance + amount;
+
+
+        //Depositing money to receivers account
+        contentValues = new ContentValues();
+        contentValues.put(accountBalance, receiverNewBalance);
+        selection = accountId + " LIKE ?";
+        String[] selectionArgsReceiver = { Integer.toString( receiverAccountId ) };
+        count = database.update(
+                tableAccounts,
+                contentValues,
+                selection,
+                selectionArgsReceiver
+        );
+
+
+
     }
 }
