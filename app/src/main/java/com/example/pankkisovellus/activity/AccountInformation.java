@@ -59,6 +59,12 @@ public class AccountInformation extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void depositOrWithdraw(View v) {
+        Intent intent = new Intent(getBaseContext(), DepositOrWithdraw.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
     public void newPayment(View v) {
         Intent intent = new Intent(getBaseContext(), NewPayment.class);
         intent.putExtra("user", user);

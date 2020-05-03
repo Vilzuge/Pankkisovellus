@@ -32,6 +32,7 @@ public class Account {
     public String getAccountName() {
         return accountName;
     }
+    public String toString() { return getAccountName(); }
     public String getAccountType() {
         return accountType;
     }
@@ -42,4 +43,3 @@ public class Account {
         return accountLimit;
     }
 }
-//testi

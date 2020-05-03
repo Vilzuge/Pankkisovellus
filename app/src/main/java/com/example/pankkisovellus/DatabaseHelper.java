@@ -213,4 +213,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void depositOrWithdraw(User user, Account account, String action, float amount) {
+        int id = user.getUserId();
+        float oldBalance = 0, newBalance;
+
+        if (action.equals("Withdraw")) {
+            amount = amount * (-1);
+        }
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableAccounts + " WHERE " +
+                        accountHolder + "=? AND " +
+                        accountName + "=?",
+                        new String[]{Integer.toString(id), account.getAccountName()});
+
+        while( cursor.moveToNext() ) {
+            oldBalance = cursor.getFloat(cursor.getColumnIndexOrThrow(accountBalance));
+        }
+        newBalance = amount + oldBalance;
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(accountBalance, newBalance);
+
+        String selection = accountId + " LIKE ?";
+        String[] selectionArgs = { Integer.toString( account.getAccountId() ) };
+
+        int count = database.update(
+                tableAccounts,
+                contentValues,
+                selection,
+                selectionArgs
+        );
+    }
 }

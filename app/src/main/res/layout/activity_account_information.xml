@@ -7,7 +7,7 @@
     tools:context=".activity.AccountInformation">
 
     <TextView
-        android:id="@+id/textAccounts"
+        android:id="@+id/textHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -38,26 +38,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccounts" />
+        app:layout_constraintTop_toBottomOf="@+id/textHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="380dp"
-        android:layout_height="235dp"
+        android:layout_width="383dp"
+        android:layout_height="185dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonNewPayment"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.224" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonDepositWithdraw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="72dp"
+        android:onClick="depositOrWithdraw"
         android:text="Deposit/Withdraw money "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
