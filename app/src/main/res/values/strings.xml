@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Pankkisovellus</string>
+    <string name="dont_have_a_user_yet">Dont have a user yet?</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="rs_b_nk_d">RSÄ-Bänk :D</string>
+    <string name="log_in">Log in</string>
+    <string name="create_a_user">Create a user</string>
+    <string name="accounts">Accounts</string>
+    <string name="new_payment">New payment</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="deposit_withdraw_money">Deposit/Withdraw money</string>
 </resources>

@@ -10,7 +10,7 @@
         android:id="@+id/textNoUser"
         android:layout_width="137dp"
         android:layout_height="22dp"
-        android:text="Dont have a user yet?"
+        android:text="@string/dont_have_a_user_yet"
         app:layout_constraintBottom_toTopOf="@+id/createUserButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -20,12 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editPassword"
@@ -33,20 +34,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="172dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPaymentLimit"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintVertical_bias="0.206"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/textBankName"
         android:layout_width="171dp"
         android:layout_height="67dp"
         android:layout_marginTop="192dp"
-        android:text='RSÄ-Bänk ":D"'
+        android:text="@string/rs_b_nk_d"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:onClick="Login"
-        android:text="Log in"
+        android:text="@string/log_in"
         app:layout_constraintBottom_toTopOf="@+id/textNoUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -70,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
         android:onClick="CreateUser"
-        android:text="Create a user"
+        android:text="@string/create_a_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
