@@ -14,9 +14,9 @@ import com.example.pankkisovellus.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static EditText username, password;
-    DatabaseHelper databaseHelper;
-    User user;
+    private EditText username, password;
+    private User user;
+    public DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,11 @@ public class LoginActivity extends AppCompatActivity {
         String userPassword = password.getText().toString();
         try {
             if (userUsername.length() > 0 && userPassword.length() > 0) {
-                //If the object was returned, log the user in.
+
                 user = databaseHelper.tryLogging(userUsername, userPassword);
                 if (user != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
-                    //Logging the user to the dashboard with the object of their information
+                    //If the user-object was returned, log the user in with their user information.
                     Intent intent = new Intent(getBaseContext(), Dashboard.class);
                     intent.putExtra("user", user);
                     startActivity(intent);
@@ -45,13 +45,17 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         } catch(Exception e){
-            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Logging in failed.", Toast.LENGTH_LONG).show();
         }
     }
 
     public void CreateUser(View v) {
-        Intent intent = new Intent(getBaseContext(), CreateNewUser.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(getBaseContext(), CreateNewUser.class);
+            startActivity(intent);
+        } catch(Exception e) {
+            Toast.makeText(LoginActivity.this, "Failed to open the user creation screen.", Toast.LENGTH_LONG).show();
+        }
     }
 
 

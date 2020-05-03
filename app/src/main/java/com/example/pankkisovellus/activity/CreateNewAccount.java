@@ -20,12 +20,8 @@ import java.util.List;
 
 public class CreateNewAccount extends AppCompatActivity {
 
-    EditText editAccountName, editAccountLimit;
-    Spinner spinnerType;
+    private EditText editAccountName, editAccountLimit;
     static String itemvalue;
-    String accountName, accountType;
-    int accountHolder, accountId;
-    float accountBalance, accountLimit;
     User user;
     DatabaseHelper databaseHelper;
 
@@ -34,17 +30,15 @@ public class CreateNewAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_account);
         user = (User) getIntent().getSerializableExtra("user");
-        databaseHelper = new DatabaseHelper(CreateNewAccount.this);
-
         editAccountName = (EditText) findViewById(R.id.editAccountName);
         editAccountLimit = (EditText) findViewById(R.id.editAccountLimit);
-        spinnerType = (Spinner) findViewById(R.id.spinnerType);
+        Spinner spinnerType = (Spinner) findViewById(R.id.spinnerType);
+        databaseHelper = new DatabaseHelper(CreateNewAccount.this);
 
-        //Choices for account type
+        //Spinner for choosing the account type
         List<String> list = new ArrayList<>();
         list.add("Debit");
         list.add("Credit");
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateNewAccount.this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
@@ -62,12 +56,14 @@ public class CreateNewAccount extends AppCompatActivity {
     }
 
     public void CreateAccount(View v) {
-        accountId = 0;
-        accountHolder = user.getUserId();
-        accountName = editAccountName.getText().toString();
-        accountType = itemvalue;
-        accountBalance = 0.0f;
-        accountLimit = Float.parseFloat(editAccountLimit.getText().toString());
+        int accountId = 0;
+        int accountHolder = user.getUserId();
+        String accountName = editAccountName.getText().toString();
+        String accountType = itemvalue;
+        float accountBalance = 0.0f;
+        float accountLimit = Float.parseFloat(editAccountLimit.getText().toString());
+
+        //Creating the account from the given information.
         Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
         boolean worked = databaseHelper.newAccount(account);
 

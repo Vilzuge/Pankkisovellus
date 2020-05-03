@@ -13,7 +13,7 @@ import com.example.pankkisovellus.User;
 
 public class CreateNewUser extends AppCompatActivity {
 
-    public static EditText userName, firstName, lastName, dob, password, confirmPassword;
+    EditText userName, firstName, lastName, dob, password, confirmPassword;
     DatabaseHelper databaseHelper;
 
     @Override
