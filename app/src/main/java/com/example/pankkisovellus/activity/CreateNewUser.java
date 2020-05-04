@@ -1,15 +1,15 @@
 package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.pankkisovellus.DatabaseHelper;
+import com.example.pankkisovellus.PasswordChecker;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
+import java.util.concurrent.TimeUnit;
 
 public class CreateNewUser extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class CreateNewUser extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(CreateNewUser.this);
     }
 
-    public void createAccount(View v) {
+    public void createAccount(View v) throws InterruptedException {
 
         String username = userName.getText().toString();
         String password_first = password.getText().toString();
@@ -40,21 +40,35 @@ public class CreateNewUser extends AppCompatActivity {
         String last_name = lastName.getText().toString();
         String date_of_birth = dob.getText().toString();
 
-        //Lets check if the passwords were identical and create an user object of the data
-        if (password_first.equals(password_second)) {
-            User user = new User(0, username, password_first, first_name, last_name, date_of_birth);
-            System.out.println(user.getFirstName());
-            System.out.println(user.getLastName());
-            System.out.println(user.getDOB());
-            System.out.println(user.getPassword());
-            System.out.println(user.getUserName());
-            boolean worked = databaseHelper.newUser(user);
+        //Checking if the password is good enough.
+        PasswordChecker checker = new PasswordChecker();
+        if(!checker.passwordLength(password_first)) {
+            Toast.makeText(CreateNewUser.this, "Password is not long enough.", Toast.LENGTH_LONG).show();
+        }
+        if(!checker.passwordNumbers(password_first)) {
+            Toast.makeText(CreateNewUser.this, "Password does not have numbers.", Toast.LENGTH_LONG).show();
+        }
+        if(!checker.hasUppercase(password_first)) {
+            Toast.makeText(CreateNewUser.this, "Password does not have uppercase letters.", Toast.LENGTH_LONG).show();
+        }
+        boolean isValidPassword = checker.isValidPassword(password_first);
 
-            if (worked == true) {
+        //Checking if the username is unique
+        boolean isValidUsername = databaseHelper.isUniqueUser(username);
+        if(!isValidUsername) {
+            Toast.makeText(CreateNewUser.this, "Username is already taken.", Toast.LENGTH_LONG).show();
+        }
+        //Checking that the passwords are correct, the username is unique and the password is complex enough
+        if (password_first.equals(password_second) && isValidPassword && isValidUsername) {
+            User user = new User(0, username, password_first, first_name, last_name, date_of_birth);
+            boolean worked = databaseHelper.newUser(user);
+            if (worked) {
                 Toast.makeText(CreateNewUser.this,"Successfully created an user.", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(CreateNewUser.this,"Creating an user failed.", Toast.LENGTH_LONG).show();
             }
+            TimeUnit.SECONDS.sleep(1);
+            finish();
         }
     }
 }

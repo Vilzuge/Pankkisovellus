@@ -156,8 +156,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(userUsername, tempUser.getUserName());
         contentValues.put(userDOB, tempUser.getDOB());
 
-
-
         String selection = userId + " LIKE ?";
         String[] selectionArgs = { Integer.toString( id ) };
 
@@ -174,8 +172,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else {
             return null;
         }
+    }
 
+    public boolean isUniqueUser(String username) {
+        //Figuring out the ID behind the username
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ username });
 
+        if (cursor.moveToFirst()) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public boolean newAccount (Account account) {
