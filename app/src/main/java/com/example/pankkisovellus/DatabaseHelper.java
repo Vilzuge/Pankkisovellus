@@ -228,7 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void depositOrWithdraw(User user, Account account, String action, float amount) {
+    public boolean depositOrWithdraw(User user, Account account, String action, float amount) {
         int id = user.getUserId();
 
         if (action.equals("Withdraw")) {
@@ -250,6 +250,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs
         );
+        if (count == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean receiverExists(String receiverAccount, String receiverUser) {
+
+        int receiverId = 0;
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ receiverUser });
+
+        while( cursor.moveToNext() ) {
+            receiverId = cursor.getInt(cursor.getColumnIndexOrThrow(userId));
+        }
+
+        //Checking if the user exists with the given account
+        cursor = database.rawQuery("SELECT * FROM " +
+                tableAccounts + " WHERE " +
+                accountHolder + "=? AND " +
+                accountName + "=?", new String[]{receiverUser, receiverAccount});
+
+        if (cursor.moveToFirst()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     public void transferMoney(Account account, String receiverAccount, String receiverUser, float amount) {

@@ -2,12 +2,14 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.pankkisovellus.Account;
 import com.example.pankkisovellus.DatabaseHelper;
@@ -79,7 +81,21 @@ public class DepositOrWithdraw extends AppCompatActivity {
 
     public void executeAction(View v) {
         float amount = Float.parseFloat(editAmount.getText().toString());
-        databaseHelper.depositOrWithdraw(user, account, actionValue, amount);
+        boolean worked = databaseHelper.depositOrWithdraw(user, account, actionValue, amount);
+        if (worked == true) {
+            if (actionValue == "Withdraw") {
+                Toast.makeText(DepositOrWithdraw.this,"Successfully withdrew the amount of money.", Toast.LENGTH_LONG).show();
+            } else if (actionValue == "Deposit") {
+                Toast.makeText(DepositOrWithdraw.this,"Successfully deposited the amount of money.", Toast.LENGTH_LONG).show();
+            }
+
+        } else {
+            Toast.makeText(DepositOrWithdraw.this,"Action failed", Toast.LENGTH_LONG).show();
+        }
+        Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 
 

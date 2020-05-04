@@ -2,12 +2,14 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.pankkisovellus.Account;
 import com.example.pankkisovellus.DatabaseHelper;
@@ -61,7 +63,20 @@ public class NewPayment extends AppCompatActivity {
         String receiverAccount = editReceiverAcc.getText().toString();
         String receiverUser = editReceiverUser.getText().toString();
         float amount = Float.parseFloat(editAmount.getText().toString());
-        databaseHelper.transferMoney(payerAccount, receiverAccount, receiverUser, amount);
+        boolean receiverExists = databaseHelper.receiverExists(receiverAccount, receiverUser);
+
+        if ((account.getAccountBalance() > amount) && receiverExists) {
+            databaseHelper.transferMoney(payerAccount, receiverAccount, receiverUser, amount);
+            Toast.makeText(NewPayment.this,"Succesfully transferred the money", Toast.LENGTH_LONG).show();
+
+            //Moving back to the AccountInformation window
+            Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(NewPayment.this,"Failed to transfer the money", Toast.LENGTH_LONG).show();
+        }
     }
 
 
