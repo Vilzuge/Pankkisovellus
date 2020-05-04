@@ -2,6 +2,7 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +55,13 @@ public class CreateNewAccount extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
+    }
 
     public void CreateAccount(View v) {
         int accountId = 0;
@@ -67,8 +75,12 @@ public class CreateNewAccount extends AppCompatActivity {
         Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
         boolean worked = databaseHelper.newAccount(account);
 
-        if (worked == true) {
+        if (worked) {
             Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+            finish();
         } else {
             Toast.makeText(CreateNewAccount.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
         }

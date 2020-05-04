@@ -10,7 +10,6 @@ import com.example.pankkisovellus.DateChecker;
 import com.example.pankkisovellus.PasswordChecker;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
-import java.util.concurrent.TimeUnit;
 
 public class CreateNewUser extends AppCompatActivity {
 
@@ -32,7 +31,7 @@ public class CreateNewUser extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(CreateNewUser.this);
     }
 
-    public void createAccount(View v) throws InterruptedException {
+    public void createAccount(View v) {
 
         String username = userName.getText().toString();
         String password_first = password.getText().toString();
@@ -76,7 +75,6 @@ public class CreateNewUser extends AppCompatActivity {
             } else {
                 Toast.makeText(CreateNewUser.this,"Creating an user failed.", Toast.LENGTH_LONG).show();
             }
-            TimeUnit.SECONDS.sleep(1);
             finish();
         }
     }

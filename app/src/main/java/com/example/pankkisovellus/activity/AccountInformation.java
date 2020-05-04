@@ -39,7 +39,13 @@ public class AccountInformation extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(AccountInformation.this, account_array);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountInformation.this));
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void changeInformation(View v) {
@@ -52,6 +58,7 @@ public class AccountInformation extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), CreateNewAccount.class);
         intent.putExtra("user", user);
         startActivity(intent);
+        finish();
     }
 
     public void depositOrWithdraw(View v) {
@@ -65,6 +72,4 @@ public class AccountInformation extends AppCompatActivity {
         intent.putExtra("user", user);
         startActivity(intent);
     }
-
-
 }

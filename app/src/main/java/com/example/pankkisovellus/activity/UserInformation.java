@@ -2,6 +2,7 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,8 +12,6 @@ import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.DateChecker;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
-
-import java.util.concurrent.TimeUnit;
 
 public class UserInformation extends AppCompatActivity {
 
@@ -43,7 +42,7 @@ public class UserInformation extends AppCompatActivity {
 
     }
 
-    public void changeInformation(View v) throws InterruptedException {
+    public void changeInformation(View v) {
         userid = user.getUserId();
         userName = editUsername.getText().toString();
         userPassword = user.getPassword();
@@ -66,12 +65,15 @@ public class UserInformation extends AppCompatActivity {
             if (databaseHelper.alterUser(tempUser) != null) {
                 Toast.makeText(UserInformation.this, "Successfully changed information.", Toast.LENGTH_LONG).show();
                 user = tempUser;
+                Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(UserInformation.this, "Changing user information failed.", Toast.LENGTH_LONG).show();
                 user = user;
             }
         }
-        TimeUnit.SECONDS.sleep(1);
         finish();
     }
 }
