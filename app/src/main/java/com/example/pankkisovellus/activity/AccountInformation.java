@@ -24,7 +24,6 @@ public class AccountInformation extends AppCompatActivity {
     TextView nameText;
     User user;
     DatabaseHelper databaseHelper;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +39,6 @@ public class AccountInformation extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(AccountInformation.this, account_array);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(AccountInformation.this));
-
-
-        for(int i = 0; i < account_array.size(); i++) {
-            System.out.println(account_array.get(i).getAccountId());
-            System.out.println(account_array.get(i).getAccountHolder());
-            System.out.println(account_array.get(i).getAccountName());
-            System.out.println(account_array.get(i).getAccountType());
-            System.out.println(account_array.get(i).getAccountBalance());
-            System.out.println(account_array.get(i).getAccountLimit());
-            System.out.println("**********************");
-        }
 
     }
 
