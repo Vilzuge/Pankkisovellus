@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Last Name"
+        android:text="@string/last_name_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/textAccountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="First Name"
+        android:text="@string/first_name_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.155"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Username"
+        android:text="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Date of birth"
+        android:text="@string/date_of_birth_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,11 +58,13 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="fname"
+        android:text="@string/fname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccountName" />
+        app:layout_constraintTop_toBottomOf="@+id/textAccountName"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/buttonCreateAccount"
@@ -70,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:onClick="changeInformation"
-        android:text="Change Userinformation"
+        android:text="@string/change_userinformation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -82,11 +84,13 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="lname"
+        android:text="@string/lname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccountType" />
+        app:layout_constraintTop_toBottomOf="@+id/textAccountType"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/editPaymentLimit"
@@ -95,11 +99,13 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="uname"
+        android:text="@string/uname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPaylimit" />
+        app:layout_constraintTop_toBottomOf="@+id/textPaylimit"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/editDOB"
@@ -108,10 +114,12 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="udob"
+        android:text="@string/udob"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDOB" />
+        app:layout_constraintTop_toBottomOf="@+id/textDOB"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

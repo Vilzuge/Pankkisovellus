@@ -228,7 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void depositOrWithdraw(User user, Account account, String action, float amount) {
+    public boolean depositOrWithdraw(User user, Account account, String action, float amount) {
         int id = user.getUserId();
 
         if (action.equals("Withdraw")) {
@@ -250,6 +250,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs
         );
+
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void transferMoney(Account account, String receiverAccount, String receiverUser, float amount) {

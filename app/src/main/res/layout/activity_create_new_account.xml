@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Account Type"
+        android:text="@string/account_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/textAccountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account Name"
+        android:text="@string/account_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.138"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Payment Limit (0 = unlimited)"
+        android:text="@string/payment_limit_0_unlimited"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.196"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,12 +46,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Account name"
+        android:hint="@string/account_name_payment"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccountName" />
+        app:layout_constraintTop_toBottomOf="@+id/textAccountName"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/buttonCreateAccount"
@@ -59,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:onClick="CreateAccount"
-        android:text="Create an account"
+        android:text="@string/create_an_account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -80,11 +81,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Payment limit"
+        android:hint="@string/payment_limit"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPaylimit" />
+        app:layout_constraintTop_toBottomOf="@+id/textPaylimit"
+        android:importantForAutofill="no" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
