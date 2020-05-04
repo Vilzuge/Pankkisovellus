@@ -101,6 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Trying to log the user in with the given information.
     public User tryLogging(String signingUsername, String signingPassword) throws SQLException {
         //Creating an empty User object first.
         User user = new User();

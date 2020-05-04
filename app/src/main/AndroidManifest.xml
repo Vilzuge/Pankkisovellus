@@ -13,7 +13,6 @@
         <activity android:name=".activity.NewPayment" />
         <activity android:name=".activity.CreateNewAccount" />
         <activity android:name=".activity.AccountInformation" />
-        <activity android:name=".activity.Dashboard" />
         <activity android:name=".activity.UserInformation" />
         <activity android:name=".activity.CreateNewUser" />
         <activity android:name=".activity.LoginActivity">

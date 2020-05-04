@@ -31,6 +31,7 @@ public class UserInformation extends AppCompatActivity {
         editUsername = (EditText) findViewById(R.id.editPaymentLimit);
         editDOB = (EditText) findViewById(R.id.editDOB);
 
+        //Filling the fields with the present information
         editFirstName.setText(user.getFirstName());
         editLastName.setText(user.getLastName());
         editUsername.setText(user.getUserName());
@@ -47,7 +48,6 @@ public class UserInformation extends AppCompatActivity {
         userDOB = editDOB.getText().toString();
 
         User tempUser = new User(userid, userName, userPassword, firstName, lastName, userDOB);
-
         if (databaseHelper.alterUser(tempUser) != null){
             Toast.makeText(UserInformation.this, "Successfully changed information.", Toast.LENGTH_LONG).show();
             user = tempUser;

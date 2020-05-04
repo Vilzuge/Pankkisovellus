@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.pankkisovellus.DatabaseHelper;
+import com.example.pankkisovellus.DateChecker;
 import com.example.pankkisovellus.PasswordChecker;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
@@ -53,13 +54,21 @@ public class CreateNewUser extends AppCompatActivity {
         }
         boolean isValidPassword = checker.isValidPassword(password_first);
 
+        //Checking if the date is in correct format.
+        DateChecker datechecker = new DateChecker();
+
+        if(!datechecker.isValidDate(date_of_birth)) {
+            Toast.makeText(CreateNewUser.this, "Date is not in the correct format. 'dd.mm.yyyy'", Toast.LENGTH_LONG).show();
+        }
+        boolean isValidDOB = datechecker.isValidDate(date_of_birth);
+
         //Checking if the username is unique
         boolean isValidUsername = databaseHelper.isUniqueUser(username);
         if(!isValidUsername) {
             Toast.makeText(CreateNewUser.this, "Username is already taken.", Toast.LENGTH_LONG).show();
         }
         //Checking that the passwords are correct, the username is unique and the password is complex enough
-        if (password_first.equals(password_second) && isValidPassword && isValidUsername) {
+        if (password_first.equals(password_second) && isValidPassword && isValidUsername && isValidDOB) {
             User user = new User(0, username, password_first, first_name, last_name, date_of_birth);
             boolean worked = databaseHelper.newUser(user);
             if (worked) {

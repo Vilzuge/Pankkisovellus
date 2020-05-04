@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.pankkisovellus.Account;
 import com.example.pankkisovellus.DatabaseHelper;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class AccountInformation extends AppCompatActivity {
 
+    TextView nameText;
     User user;
     DatabaseHelper databaseHelper;
     private Context context;
@@ -30,8 +32,10 @@ public class AccountInformation extends AppCompatActivity {
         setContentView(R.layout.activity_account_information);
         user = (User) getIntent().getSerializableExtra("user");
         databaseHelper = new DatabaseHelper(AccountInformation.this);
-        ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
+        nameText = (TextView) findViewById(R.id.textViewName);
+        nameText.setText(user.getUserName());
 
+        ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(AccountInformation.this, account_array);
         recyclerView.setAdapter(adapter);
@@ -48,6 +52,12 @@ public class AccountInformation extends AppCompatActivity {
             System.out.println("**********************");
         }
 
+    }
+
+    public void changeInformation(View v) {
+        Intent intent = new Intent(getBaseContext(), UserInformation.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 
     public void createNewAccount(View v) {
