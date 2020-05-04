@@ -274,7 +274,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor = database.rawQuery("SELECT * FROM " +
                 tableAccounts + " WHERE " +
                 accountHolder + "=? AND " +
-                accountName + "=?", new String[]{receiverUser, receiverAccount});
+                accountName + "=?", new String[]{Integer.toString(receiverId), receiverAccount});
 
         if (cursor.moveToFirst()) {
             return true;
