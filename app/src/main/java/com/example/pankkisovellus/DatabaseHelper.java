@@ -190,6 +190,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean isUniqueAccount(String username) {
+        //Figuring out the ID behind the username
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ username });
+
+        if (cursor.moveToFirst()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public boolean newAccount (Account account) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(accountHolder, account.getAccountHolder());
@@ -234,6 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (action.equals("Withdraw")) {
             amount = amount * (-1);
         }
+
 
         float oldBalance = account.getAccountBalance();
         float newBalance = oldBalance + amount;
