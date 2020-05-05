@@ -42,6 +42,7 @@ public class Dashboard extends AppCompatActivity implements RecyclerViewAdapter.
         recyclerView.setLayoutManager(new LinearLayoutManager(Dashboard.this));
     }
 
+    //If back is pressed, open the login screen from the scratch
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
@@ -49,12 +50,17 @@ public class Dashboard extends AppCompatActivity implements RecyclerViewAdapter.
         finish();
     }
 
+    //Dashboard is basically a hub for the user to handle their user information, accounts and
+    //credit/debit cards
+
+    //Move to ChangeInformation activity with user
     public void changeInformation(View v) {
         Intent intent = new Intent(getBaseContext(), ChangeUserInformation.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }
 
+    //Move to CreateNewAccount activity with user
     public void createNewAccount(View v) {
         Intent intent = new Intent(getBaseContext(), CreateNewAccount.class);
         intent.putExtra("user", user);
@@ -62,18 +68,22 @@ public class Dashboard extends AppCompatActivity implements RecyclerViewAdapter.
         finish();
     }
 
+    //Move to DepositOrWithdraw activity with user
     public void depositOrWithdraw(View v) {
         Intent intent = new Intent(getBaseContext(), DepositOrWithdraw.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }
 
+    //Move to NewPayment activity with user
     public void newPayment(View v) {
         Intent intent = new Intent(getBaseContext(), NewPayment.class);
         intent.putExtra("user", user);
         startActivity(intent);
     }
 
+    //If a certain account is pressed in the recyclerView, move to that accounts information page
+    //with the account and user objects
     @Override
     public void onAccountClick(int position) {
         acc = account_array.get(position);

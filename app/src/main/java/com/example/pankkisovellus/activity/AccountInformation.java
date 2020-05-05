@@ -42,11 +42,13 @@ public class AccountInformation extends AppCompatActivity {
         header.setText(account.getAccountName());
 
         event_list = readAccountFile(user.getUserName(), account.getAccountName());
+        //Reversing the list to keep the newest information first
         Collections.reverse(event_list);
         ArrayAdapter arrayAdapter = new ArrayAdapter(AccountInformation.this, android.R.layout.simple_list_item_1, event_list);
         listView.setAdapter(arrayAdapter);
     }
 
+    //If "Add card" button is pressed, move to AddCard activity with the account object
     public void addCard(View v) {
         Intent intent = new Intent(getBaseContext(), AddCard.class);
         intent.putExtra("account", account);
@@ -54,6 +56,7 @@ public class AccountInformation extends AppCompatActivity {
     }
 
 
+    //The account specific transaction file is being read here and put into a ArrayList of strings
     public ArrayList<String> readAccountFile(String user, String account) {
         ArrayList<String> list = new ArrayList<String>();
         try {

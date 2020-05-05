@@ -55,6 +55,7 @@ public class CreateNewAccount extends AppCompatActivity {
             }
         });
     }
+    //If back is pressed in "CreateNewAccount"-view, transition back to "Dashboard" by running the view again
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getBaseContext(), Dashboard.class);
@@ -63,6 +64,7 @@ public class CreateNewAccount extends AppCompatActivity {
         finish();
     }
 
+    //Creating a new account for the user by calling databaseHelpers method newAccount()
     public void CreateAccount(View v) {
         int accountId = 0;
         int accountHolder = user.getUserId();

@@ -47,7 +47,7 @@ public class NewPayment extends AppCompatActivity {
         editAmount = (EditText) findViewById(R.id.editAmount);
         databaseHelper = new DatabaseHelper(NewPayment.this);
 
-
+        //Creating a spinner with all of the accounts the user has
         ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
         ArrayAdapter<Account> adapterAccount = new ArrayAdapter<Account>(NewPayment.this, android.R.layout.simple_spinner_item, account_array);
         adapterAccount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -58,23 +58,25 @@ public class NewPayment extends AppCompatActivity {
                 accountValue = parent.getItemAtPosition(position).toString();
                 account = (Account) parent.getItemAtPosition(position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
     }
 
+    //Trying to transfer money to the specific account of the specific account the payer has
+    //provided
     public void transferMoney(View v) {
         Account payerAccount = account;
         String receiverAccount = editReceiverAcc.getText().toString();
         String receiverUser = editReceiverUser.getText().toString();
+
         float amount = Float.parseFloat(editAmount.getText().toString());
+        boolean isUnderLimit = account.getAccountLimit() >= amount;
         boolean receiverExists = databaseHelper.receiverExists(receiverAccount, receiverUser);
 
-        if ((account.getAccountBalance() > amount) && receiverExists) {
+        if ((account.getAccountBalance() > amount) && receiverExists && isUnderLimit) {
             databaseHelper.transferMoney(payerAccount, receiverAccount, receiverUser, amount);
             Toast.makeText(NewPayment.this,"Succesfully transferred the money", Toast.LENGTH_LONG).show();
 

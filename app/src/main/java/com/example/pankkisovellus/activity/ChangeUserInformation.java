@@ -31,17 +31,17 @@ public class ChangeUserInformation extends AppCompatActivity {
         datechecker = new DateChecker();
         editFirstName = (EditText) findViewById(R.id.editAccountName);
         editLastName = (EditText) findViewById(R.id.editLastName);
-        editUsername = (EditText) findViewById(R.id.editPaymentLimit);
         editDOB = (EditText) findViewById(R.id.editDOB);
 
         //Filling the fields with the present information
         editFirstName.setText(user.getFirstName());
         editLastName.setText(user.getLastName());
-        editUsername.setText(user.getUserName());
         editDOB.setText(user.getDOB());
 
     }
 
+    //Changing user information by calling a databaseHelper method alterUser()
+    //opening up the Dashboard again if the change happens
     public void changeInformation(View v) {
         userid = user.getUserId();
         userName = user.getUserName();
@@ -49,7 +49,6 @@ public class ChangeUserInformation extends AppCompatActivity {
         firstName = editFirstName.getText().toString();
         lastName = editLastName.getText().toString();
         userDOB = editDOB.getText().toString();
-
 
         boolean isValidDOB = datechecker.isValidDate(userDOB);
         if (!isValidDOB) {
