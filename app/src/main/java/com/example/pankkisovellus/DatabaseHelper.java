@@ -236,7 +236,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         float oldBalance = account.getAccountBalance();
+
         float newBalance = oldBalance + amount;
+        if (newBalance < 0) {
+            return false;
+        }
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(accountBalance, newBalance);
