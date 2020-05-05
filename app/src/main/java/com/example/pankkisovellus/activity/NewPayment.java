@@ -95,7 +95,7 @@ public class NewPayment extends AppCompatActivity {
     public void writeTransferEvent(String payerUser, String receiverUser, String payerAccount, String receiverAccount, float amount) {
         //Payer write
         StringBuilder dataPayer = new StringBuilder();
-        dataPayer.append("Transfer/"+payerUser+"/"+receiverUser+"/"+String.valueOf(amount)+"\n");
+        dataPayer.append("Transfer / "+payerUser+" / "+receiverUser+" / "+String.valueOf(amount)+"€\n");
         try {
             FileOutputStream fOut = openFileOutput(payerUser+"_"+payerAccount+".csv", MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
@@ -109,7 +109,7 @@ public class NewPayment extends AppCompatActivity {
 
         //Receiver write
         StringBuilder dataReceiver = new StringBuilder();
-        dataReceiver.append("Transfer/"+receiverUser+"/"+payerUser+"/"+String.valueOf(amount)+"\n");
+        dataReceiver.append("Transfer / "+receiverUser+" / "+payerUser+" / "+String.valueOf(amount)+"€\n");
         try {
             FileOutputStream fOut = openFileOutput(receiverUser+"_"+receiverAccount+".csv", MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);

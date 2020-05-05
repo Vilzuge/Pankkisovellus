@@ -77,9 +77,11 @@ public class Dashboard extends AppCompatActivity implements RecyclerViewAdapter.
     @Override
     public void onAccountClick(int position) {
         acc = account_array.get(position);
-        System.out.println( acc.getAccountName() );
+        Bundle extras = new Bundle();
+        extras.putSerializable("account", acc);
+        extras.putSerializable("user",user);
         Intent intent = new Intent(getBaseContext(), AccountInformation.class);
-        intent.putExtra("account", acc);
+        intent.putExtras(extras);
         startActivity(intent);
     }
 }

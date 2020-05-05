@@ -1,9 +1,8 @@
 package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -11,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pankkisovellus.Account;
-import com.example.pankkisovellus.EventInformation;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
 
@@ -34,12 +32,15 @@ public class AccountInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_information);
-        account = (Account) getIntent().getSerializableExtra("account");
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        account = (Account) extras.getSerializable("account");
+        user = (User) extras.getSerializable("user");
         listView = (ListView) findViewById(R.id.listView);
         header = (TextView) findViewById(R.id.textAccountName);
         header.setText(account.getAccountName());
 
-        event_list = readAccountFile("vilzuge", "testiacco");
+        event_list = readAccountFile(user.getUserName(), account.getAccountName());
         Collections.reverse(event_list);
         ArrayAdapter arrayAdapter = new ArrayAdapter(AccountInformation.this, android.R.layout.simple_list_item_1, event_list);
         listView.setAdapter(arrayAdapter);
