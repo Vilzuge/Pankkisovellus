@@ -23,7 +23,7 @@
         android:id="@+id/editAccountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="@string/first_name_create"
         android:importantForAutofill="no"
@@ -36,27 +36,27 @@
         android:id="@+id/editPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="96dp"
         android:ems="10"
         android:hint="@string/choose_a_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDOB"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editDOB" />
 
     <EditText
         android:id="@+id/editConfirmPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/confirm_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
     <EditText
         android:id="@+id/editDOB"
@@ -65,11 +65,11 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/date_of_birth_dd_mm_yyyy"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLastName"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editLastName" />
 
     <Button
         android:id="@+id/createAccount"
@@ -86,12 +86,14 @@
         android:id="@+id/editPaymentLimit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="@string/choose_a_username"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/editPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editDOB" />
 </androidx.constraintlayout.widget.ConstraintLayout>
