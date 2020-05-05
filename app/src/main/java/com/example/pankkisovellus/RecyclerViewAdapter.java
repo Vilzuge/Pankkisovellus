@@ -35,7 +35,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.accountName.setText(account_array.get(position).getAccountName());
-        holder.accountBalance.setText(Float.toString(account_array.get(position).getAccountBalance()));
+        holder.accountBalance.setText(Float.toString(account_array.get(position).getAccountBalance()) + "€");
     }
 
     @Override
