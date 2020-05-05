@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AccountInformation extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class AccountInformation extends AppCompatActivity {
         header.setText(account.getAccountName());
 
         event_list = readAccountFile("vilzuge", "testiacco");
-
+        Collections.reverse(event_list);
         ArrayAdapter arrayAdapter = new ArrayAdapter(AccountInformation.this, android.R.layout.simple_list_item_1, event_list);
         listView.setAdapter(arrayAdapter);
     }
@@ -60,9 +61,9 @@ public class AccountInformation extends AppCompatActivity {
             ins.close();
             return list;
         } catch (IOException e) {
-            Log.e("IOException","Virhe syötteessä");
+            Log.e("IOException","Error in input");
         } finally {
-            System.out.println("Luettu");
+            System.out.println("File read");
         }
         return list;
     }
