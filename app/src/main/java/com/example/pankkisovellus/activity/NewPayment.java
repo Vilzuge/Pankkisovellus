@@ -78,7 +78,7 @@ public class NewPayment extends AppCompatActivity {
             databaseHelper.transferMoney(payerAccount, receiverAccount, receiverUser, amount);
             Toast.makeText(NewPayment.this,"Succesfully transferred the money", Toast.LENGTH_LONG).show();
 
-            //Writing information to files
+            //Writing tranfer information to files, and printing a receipt
             printReceipt(user.getUserName(), account.getAccountName(), receiverAccount, receiverUser, amount);
             writeTransferEvent(user.getUserName(), receiverUser, account.getAccountName(), receiverAccount, amount);
 
@@ -93,8 +93,8 @@ public class NewPayment extends AppCompatActivity {
     }
 
     public void writeTransferEvent(String payerUser, String receiverUser, String payerAccount, String receiverAccount, float amount) {
-        StringBuilder dataPayer = new StringBuilder();
         //Payer write
+        StringBuilder dataPayer = new StringBuilder();
         dataPayer.append("Transfer/"+payerUser+"/"+receiverUser+"/"+String.valueOf(amount)+"\n");
         try {
             FileOutputStream fOut = openFileOutput(payerUser+"_"+payerAccount+".csv", MODE_APPEND);
@@ -131,7 +131,6 @@ public class NewPayment extends AppCompatActivity {
             FileOutputStream out = openFileOutput("receipt.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
             out.close();
-
         }
         catch(Exception e) {
             e.printStackTrace();
