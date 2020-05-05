@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,13 +38,19 @@ public class AccountInformation extends AppCompatActivity {
         account = (Account) extras.getSerializable("account");
         user = (User) extras.getSerializable("user");
         listView = (ListView) findViewById(R.id.listView);
-        header = (TextView) findViewById(R.id.textAccountName);
+        header = (TextView) findViewById(R.id.textOrderAccountName);
         header.setText(account.getAccountName());
 
         event_list = readAccountFile(user.getUserName(), account.getAccountName());
         Collections.reverse(event_list);
         ArrayAdapter arrayAdapter = new ArrayAdapter(AccountInformation.this, android.R.layout.simple_list_item_1, event_list);
         listView.setAdapter(arrayAdapter);
+    }
+
+    public void addCard(View v) {
+        Intent intent = new Intent(getBaseContext(), AddCard.class);
+        intent.putExtra("account", account);
+        startActivity(intent);
     }
 
 

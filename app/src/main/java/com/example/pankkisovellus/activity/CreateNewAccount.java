@@ -38,8 +38,8 @@ public class CreateNewAccount extends AppCompatActivity {
 
         //Spinner for choosing the account type
         List<String> list = new ArrayList<>();
-        list.add("Debit");
-        list.add("Credit");
+        list.add("Checking");
+        list.add("Savings");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(CreateNewAccount.this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);

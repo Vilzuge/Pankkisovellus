@@ -15,10 +15,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccountName" />
+        app:layout_constraintTop_toBottomOf="@+id/textOrderAccountName" />
 
     <TextView
-        android:id="@+id/textAccountName"
+        android:id="@+id/textOrderAccountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/account_name"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAccountName"
+        app:layout_constraintTop_toBottomOf="@+id/textOrderAccountName"
         android:autofillHints="" />
 
     <Button

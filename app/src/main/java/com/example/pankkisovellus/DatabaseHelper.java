@@ -40,12 +40,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String tableCards = "CARDS";
     private static final String cardId = "CARDID";
-    private static final String cardHolder = "HOLDERNAME";
+    private static final String cardHolder = "HOLDERID";
     private static final String cardAccount = "ACCOUNTNAME";
     private static final String cardType = "CARDTYPE";
 
     private SQLiteDatabase database;
-    private static int DATABASE_VERSION = 14;
+    private static int DATABASE_VERSION = 15;
 
 
     public DatabaseHelper(Context context) {
@@ -190,6 +190,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean isUniqueAccount(String username) {
+        //Figuring out the ID behind the username
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ username });
+
+        if (cursor.moveToFirst()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public boolean newAccount (Account account) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(accountHolder, account.getAccountHolder());
@@ -199,6 +214,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(accountLimit, account.getAccountLimit());
 
         long result = database.insert(tableAccounts, null, contentValues);
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    public boolean orderCard (Account account, String typeofcard) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(cardHolder, account.getAccountHolder());
+        contentValues.put(cardAccount, account.getAccountName());
+        contentValues.put(cardType, typeofcard);
+
+        long result = database.insert(tableCards, null, contentValues);
         if (result == -1) {
             return false;
         } else {
@@ -234,6 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (action.equals("Withdraw")) {
             amount = amount * (-1);
         }
+
 
         float oldBalance = account.getAccountBalance();
 

@@ -17,11 +17,10 @@ public class DateChecker {
         try {
             Date javaDate = dateformat.parse(date);
             System.out.println(date +" is a valid date");
+            return true;
         } catch (ParseException e) {
             System.out.println(date +" is an invalid date");
             return false;
         }
-
-        return true;
     }
 }
