@@ -6,12 +6,14 @@ import com.example.pankkisovellus.Account;
 import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,8 @@ public class AddCard extends AppCompatActivity {
 
     public void OrderCard(View v) {
         String cardType = itemvalue;
-        databaseHelper.orderCard(account, cardType);
+        if (databaseHelper.orderCard(account, cardType)) {
+            Toast.makeText(AddCard.this,"New payment card has been ordered.", Toast.LENGTH_LONG).show();
+        }
     }
 }
