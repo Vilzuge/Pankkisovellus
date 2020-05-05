@@ -2,6 +2,7 @@ package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,8 @@ import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
 
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,11 +90,30 @@ public class DepositOrWithdraw extends AppCompatActivity {
             } else if (actionValue == "Deposit") {
                 Toast.makeText(DepositOrWithdraw.this,"Successfully deposited the amount of money.", Toast.LENGTH_LONG).show();
             }
-
+            writeActionEvent(user.getUserName(), account.getAccountName(), actionValue, amount);
         } else {
-            Toast.makeText(DepositOrWithdraw.this,"Failed to deposit or withdraw money.", Toast.LENGTH_LONG).show();
+            Toast.makeText(DepositOrWithdraw.this,"Action failed", Toast.LENGTH_LONG).show();
         }
+        Intent intent = new Intent(getBaseContext(), Dashboard.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        finish();
     }
 
+
+    public void writeActionEvent(String myUser, String myAccount, String myAction, float amount) {
+        //Write action to file
+        StringBuilder myData = new StringBuilder();
+        myData.append(myAction + " amount " + String.valueOf(amount) + "\n");
+        try {
+            FileOutputStream fOut = openFileOutput(myUser + "_" + myAccount + ".csv", MODE_APPEND);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(myData.toString());
+            osw.close();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

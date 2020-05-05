@@ -37,9 +37,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
                     //If the user-object was returned, log the user in with their user information.
-                    Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+                    Intent intent = new Intent(getBaseContext(), Dashboard.class);
                     intent.putExtra("user", user);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
                 }
@@ -57,6 +58,5 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Failed to open the user creation screen.", Toast.LENGTH_LONG).show();
         }
     }
-
 
 }

@@ -1,69 +1,72 @@
 package com.example.pankkisovellus.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pankkisovellus.Account;
-import com.example.pankkisovellus.DatabaseHelper;
 import com.example.pankkisovellus.R;
-
-import com.example.pankkisovellus.RecyclerViewAdapter;
 import com.example.pankkisovellus.User;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AccountInformation extends AppCompatActivity {
 
-    TextView nameText;
     User user;
-    DatabaseHelper databaseHelper;
+    Account account;
+    TextView header;
+    ListView listView;
+    ArrayList<String> event_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_information);
-        user = (User) getIntent().getSerializableExtra("user");
-        databaseHelper = new DatabaseHelper(AccountInformation.this);
-        nameText = (TextView) findViewById(R.id.textViewName);
-        nameText.setText(user.getUserName());
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        account = (Account) extras.getSerializable("account");
+        user = (User) extras.getSerializable("user");
+        listView = (ListView) findViewById(R.id.listView);
+        header = (TextView) findViewById(R.id.textAccountName);
+        header.setText(account.getAccountName());
 
-        ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(AccountInformation.this, account_array);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(AccountInformation.this));
-
+        event_list = readAccountFile(user.getUserName(), account.getAccountName());
+        Collections.reverse(event_list);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(AccountInformation.this, android.R.layout.simple_list_item_1, event_list);
+        listView.setAdapter(arrayAdapter);
     }
 
-    public void changeInformation(View v) {
-        Intent intent = new Intent(getBaseContext(), UserInformation.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
 
-    public void createNewAccount(View v) {
-        Intent intent = new Intent(getBaseContext(), CreateNewAccount.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
+    public ArrayList<String> readAccountFile(String user, String account) {
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String file = user + "_" + account + ".csv";
+            InputStream ins = AccountInformation.this.openFileInput(file);
 
-    public void depositOrWithdraw(View v) {
-        Intent intent = new Intent(getBaseContext(), DepositOrWithdraw.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
+            String s = "";
+            BufferedReader br = new BufferedReader(new InputStreamReader(ins));
 
-    public void newPayment(View v) {
-        Intent intent = new Intent(getBaseContext(), NewPayment.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+            while((s = br.readLine()) != null) {
+                list.add(s + "\n");
+            }
+            ins.close();
+            return list;
+        } catch (IOException e) {
+            Log.e("IOException","Error in input");
+        } finally {
+            System.out.println("File read");
+        }
+        return list;
     }
 
 

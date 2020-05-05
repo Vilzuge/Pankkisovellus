@@ -15,17 +15,19 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private ArrayList<Account> account_array;
+    private OnAccountListener mOnAccountListener;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Account> accounts) {
+    public RecyclerViewAdapter(Context context, ArrayList<Account> accounts, OnAccountListener onAccountListener) {
         account_array = accounts;
+        this.mOnAccountListener = onAccountListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnAccountListener);
         return holder;
     }
 
@@ -41,16 +43,29 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return account_array.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView accountName, accountBalance;
         RelativeLayout parentLayout;
-        public ViewHolder(View itemView) {
+        OnAccountListener onAccountListener;
+        public ViewHolder(View itemView, OnAccountListener onAccountListener) {
             super(itemView);
-            accountName = itemView.findViewById(R.id.textAccName);
-            accountBalance = itemView.findViewById(R.id.textAccBalance);
+            accountName = itemView.findViewById(R.id.textEvent);
+            accountBalance = itemView.findViewById(R.id.textAmount);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            this.onAccountListener = onAccountListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onAccountListener.onAccountClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnAccountListener {
+        void onAccountClick(int position);
     }
 
 }

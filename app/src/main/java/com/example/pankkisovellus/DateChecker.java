@@ -21,6 +21,7 @@ public class DateChecker {
             System.out.println(date +" is an invalid date");
             return false;
         }
+
         return true;
     }
 }

@@ -250,12 +250,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgs
         );
-
-        if (count == 0) {
-            return false;
+        if (count == 1) {
+            return true;
         } else {
+            return false;
+        }
+
+    }
+
+    public boolean receiverExists(String receiverAccount, String receiverUser) {
+
+        int receiverId = 0;
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                        tableUsers + " WHERE " +
+                        userUsername + "=?",
+                new String[]{ receiverUser });
+
+        while( cursor.moveToNext() ) {
+            receiverId = cursor.getInt(cursor.getColumnIndexOrThrow(userId));
+        }
+
+        //Checking if the user exists with the given account
+        cursor = database.rawQuery("SELECT * FROM " +
+                tableAccounts + " WHERE " +
+                accountHolder + "=? AND " +
+                accountName + "=?", new String[]{Integer.toString(receiverId), receiverAccount});
+
+        if (cursor.moveToFirst()) {
             return true;
         }
+        else {
+            return false;
+        }
+
     }
 
     public void transferMoney(Account account, String receiverAccount, String receiverUser, float amount) {
