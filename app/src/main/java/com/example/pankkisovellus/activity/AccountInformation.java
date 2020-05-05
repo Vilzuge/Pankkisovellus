@@ -4,72 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.pankkisovellus.Account;
-import com.example.pankkisovellus.DatabaseHelper;
+import com.example.pankkisovellus.EventInformation;
 import com.example.pankkisovellus.R;
-
-import com.example.pankkisovellus.RecyclerViewAdapter;
 import com.example.pankkisovellus.User;
 
 import java.util.ArrayList;
 
 public class AccountInformation extends AppCompatActivity {
 
-    TextView nameText;
     User user;
-    DatabaseHelper databaseHelper;
+    Account account;
+    TextView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_information);
-        user = (User) getIntent().getSerializableExtra("user");
-        databaseHelper = new DatabaseHelper(AccountInformation.this);
-        nameText = (TextView) findViewById(R.id.textViewName);
-        nameText.setText(user.getUserName());
+        account = (Account) getIntent().getSerializableExtra("account");
+        header = (TextView) findViewById(R.id.textAccountName);
+        header.setText(account.getAccountName());
 
-        ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(AccountInformation.this, account_array);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(AccountInformation.this));
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
-    public void changeInformation(View v) {
-        Intent intent = new Intent(getBaseContext(), UserInformation.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
-
-    public void createNewAccount(View v) {
-        Intent intent = new Intent(getBaseContext(), CreateNewAccount.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-        finish();
-    }
-
-    public void depositOrWithdraw(View v) {
-        Intent intent = new Intent(getBaseContext(), DepositOrWithdraw.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
-
-    public void newPayment(View v) {
-        Intent intent = new Intent(getBaseContext(), NewPayment.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
-    }
 }

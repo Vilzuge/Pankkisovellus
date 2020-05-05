@@ -13,7 +13,7 @@ import com.example.pankkisovellus.DateChecker;
 import com.example.pankkisovellus.R;
 import com.example.pankkisovellus.User;
 
-public class UserInformation extends AppCompatActivity {
+public class ChangeUserInformation extends AppCompatActivity {
 
     EditText editFirstName, editLastName, editUsername, editDOB;
     String firstName, lastName, userName, userPassword, userDOB;
@@ -25,9 +25,9 @@ public class UserInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_information);
+        setContentView(R.layout.activity_change_user_information);
         user = (User) getIntent().getSerializableExtra("user");
-        databaseHelper = new DatabaseHelper(UserInformation.this);
+        databaseHelper = new DatabaseHelper(ChangeUserInformation.this);
         datechecker = new DateChecker();
         editFirstName = (EditText) findViewById(R.id.editAccountName);
         editLastName = (EditText) findViewById(R.id.editLastName);
@@ -53,23 +53,22 @@ public class UserInformation extends AppCompatActivity {
 
         boolean isValidDOB = datechecker.isValidDate(userDOB);
         if (!isValidDOB) {
-            Toast.makeText(UserInformation.this, "Incorrect dateformat", Toast.LENGTH_LONG).show();
+            Toast.makeText(ChangeUserInformation.this, "Incorrect dateformat", Toast.LENGTH_LONG).show();
         }
 
         if (isValidDOB) {
             User tempUser = new User(userid, userName, userPassword, firstName, lastName, userDOB);
             if (databaseHelper.alterUser(tempUser) != null) {
-                Toast.makeText(UserInformation.this, "Successfully changed information.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChangeUserInformation.this, "Successfully changed information.", Toast.LENGTH_LONG).show();
                 user = tempUser;
-                Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+                Intent intent = new Intent(getBaseContext(), Dashboard.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(UserInformation.this, "Changing user information failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChangeUserInformation.this, "Changing user information failed.", Toast.LENGTH_LONG).show();
                 user = user;
             }
         }
-        finish();
     }
 }

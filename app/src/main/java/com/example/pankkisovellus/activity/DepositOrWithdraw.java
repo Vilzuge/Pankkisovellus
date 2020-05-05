@@ -92,7 +92,7 @@ public class DepositOrWithdraw extends AppCompatActivity {
         } else {
             Toast.makeText(DepositOrWithdraw.this,"Action failed", Toast.LENGTH_LONG).show();
         }
-        Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+        Intent intent = new Intent(getBaseContext(), Dashboard.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();

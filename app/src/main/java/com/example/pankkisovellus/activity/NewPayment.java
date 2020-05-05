@@ -70,7 +70,7 @@ public class NewPayment extends AppCompatActivity {
             Toast.makeText(NewPayment.this,"Succesfully transferred the money", Toast.LENGTH_LONG).show();
 
             //Moving back to the AccountInformation window
-            Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+            Intent intent = new Intent(getBaseContext(), Dashboard.class);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();

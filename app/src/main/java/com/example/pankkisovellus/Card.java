@@ -7,12 +7,7 @@ public class Card {
     private String cardBalance;
     private String cardLimit;
 
-    public Card() {
-        cardName = "null";
-        cardType = "null";
-        cardBalance = "null";
-        cardLimit = "null";
-    }
+    public Card() { }
     public Card(String name, String type, String balance, String limit) {
         cardName = name;
         cardType = type;

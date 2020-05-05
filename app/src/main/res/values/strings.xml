@@ -47,4 +47,8 @@
     <string name="udob">udob</string>
     <string name="account_name_listitem">Account Name</string>
     <string name="account_balance_listitem">Account Balance</string>
+    <string name="account_header">accname</string>
+    <string name="event">Event</string>
+    <string name="event_amount">amount</string>
+    <string name="event_receiver">receiver</string>
 </resources>

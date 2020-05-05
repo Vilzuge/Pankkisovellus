@@ -57,7 +57,7 @@ public class CreateNewAccount extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+        Intent intent = new Intent(getBaseContext(), Dashboard.class);
         intent.putExtra("user", user);
         startActivity(intent);
         finish();
@@ -77,7 +77,7 @@ public class CreateNewAccount extends AppCompatActivity {
 
         if (worked) {
             Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getBaseContext(), AccountInformation.class);
+            Intent intent = new Intent(getBaseContext(), Dashboard.class);
             intent.putExtra("user", user);
             startActivity(intent);
             finish();

@@ -14,7 +14,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/textAccName"
+        android:id="@+id/textEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -28,7 +28,7 @@
         android:layout_toEndOf="@id/image" />
 
     <TextView
-        android:id="@+id/textAccBalance"
+        android:id="@+id/textAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
