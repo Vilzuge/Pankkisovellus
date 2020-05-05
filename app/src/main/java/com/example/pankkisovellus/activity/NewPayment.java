@@ -21,7 +21,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class NewPayment extends AppCompatActivity {
@@ -94,10 +97,11 @@ public class NewPayment extends AppCompatActivity {
         //Payer write
         dataPayer.append("Transfer/"+payerUser+"/"+receiverUser+"/"+String.valueOf(amount)+"\n");
         try {
-            File file = new File("payerappend.txt");
-            FileWriter fr = new FileWriter(file, true);
-            fr.write(dataPayer.toString());
-            fr.close();
+            FileOutputStream fOut = openFileOutput(payerUser+"_"+payerAccount+".csv", MODE_APPEND);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(dataPayer.toString());
+            osw.close();
+            fOut.close();
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -107,10 +111,11 @@ public class NewPayment extends AppCompatActivity {
         StringBuilder dataReceiver = new StringBuilder();
         dataReceiver.append("Transfer/"+receiverUser+"/"+payerUser+"/"+String.valueOf(amount)+"\n");
         try {
-            File file = new File("receiverappend.txt");
-            FileWriter fr = new FileWriter(file, true);
-            fr.write(dataReceiver.toString());
-            fr.close();
+            FileOutputStream fOut = openFileOutput(receiverUser+"_"+receiverAccount+".csv", MODE_APPEND);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(dataReceiver.toString());
+            osw.close();
+            fOut.close();
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -126,6 +131,7 @@ public class NewPayment extends AppCompatActivity {
             FileOutputStream out = openFileOutput("receipt.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
             out.close();
+
         }
         catch(Exception e) {
             e.printStackTrace();
