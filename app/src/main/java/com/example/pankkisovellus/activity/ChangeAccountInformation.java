@@ -24,7 +24,7 @@ public class ChangeAccountInformation extends AppCompatActivity {
 
     User user;
     Account account;
-    EditText editAccountName, editAccountLimit;
+    EditText editAccountLimit;
     DatabaseHelper databaseHelper;
     String accName, accType;
     float accPayLimit, accBalance;
