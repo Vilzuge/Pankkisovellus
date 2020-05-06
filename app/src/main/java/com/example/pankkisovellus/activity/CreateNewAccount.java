@@ -72,19 +72,25 @@ public class CreateNewAccount extends AppCompatActivity {
         String accountType = itemvalue;
         float accountBalance = 0.0f;
         float accountLimit = Float.parseFloat(editAccountLimit.getText().toString());
+        boolean isValidAccount = databaseHelper.isUniqueAccount(accountHolder, accountName);
+
+        if (!isValidAccount) {
+            Toast.makeText(CreateNewAccount.this,"You already have a account with that name.", Toast.LENGTH_LONG).show();
+        }
 
         //Creating the account from the given information.
-        Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
-        boolean worked = databaseHelper.newAccount(account);
-
-        if (worked) {
-            Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getBaseContext(), Dashboard.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(CreateNewAccount.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+        if(isValidAccount) {
+            Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
+            boolean worked = databaseHelper.newAccount(account);
+            if (worked) {
+                Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(CreateNewAccount.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

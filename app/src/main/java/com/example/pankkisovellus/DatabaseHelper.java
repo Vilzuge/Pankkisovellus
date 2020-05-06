@@ -183,7 +183,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Checking if a certain username already exists in the database
     public boolean isUniqueUser(String username) {
-        //Figuring out the ID behind the username
         Cursor cursor = database.rawQuery("SELECT * FROM " +
                         tableUsers + " WHERE " +
                         userUsername + "=?",
@@ -198,12 +197,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Checking if a certain account already exists in the database
-    public boolean isUniqueAccount(String username) {
-        //Figuring out the ID behind the username
+    public boolean isUniqueAccount(int accholder, String accname) {
+
         Cursor cursor = database.rawQuery("SELECT * FROM " +
-                        tableUsers + " WHERE " +
-                        userUsername + "=?",
-                new String[]{ username });
+                        tableAccounts + " WHERE " +
+                        accountName + "=? AND " +
+                        accountHolder + "=?",
+                new String[]{ accname, Integer.toString(accholder) });
 
         if (cursor.moveToFirst()) {
             return false;
