@@ -78,6 +78,7 @@ public class CreateNewAccount extends AppCompatActivity {
             Toast.makeText(CreateNewAccount.this,"You already have a account with that name.", Toast.LENGTH_LONG).show();
         }
 
+
         //Creating the account from the given information.
         if(isValidAccount) {
             Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);

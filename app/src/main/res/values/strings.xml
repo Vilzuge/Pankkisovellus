@@ -14,7 +14,7 @@
     <string name="change_user_information">Change user information</string>
     <string name="account_type">Account Type</string>
     <string name="account_name">Account Name</string>
-    <string name="payment_limit_0_unlimited">Payment Limit (0 = unlimited)</string>
+    <string name="payment_limit_0_unlimited">Payment Limit</string>
     <string name="account_name_payment">Account name</string>
     <string name="create_an_account">Create an account</string>
     <string name="payment_limit">Payment limit</string>
@@ -34,7 +34,7 @@
     <string name="choose_a_password">Choose a password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="date_of_birth_dd_mm_yyyy">Date of birth (dd.mm.yyyy)</string>
-    <string name="create_account">Create account</string>
+    <string name="create_user">Create user</string>
     <string name="choose_a_username">Choose a username</string>
     <string name="last_name_edit">Last Name</string>
     <string name="username_edit">Username</string>

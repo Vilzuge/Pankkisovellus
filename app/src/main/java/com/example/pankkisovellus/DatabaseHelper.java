@@ -162,6 +162,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(userFirstName, tempUser.getFirstName());
         contentValues.put(userLastName, tempUser.getLastName());
         contentValues.put(userDOB, tempUser.getDOB());
+        contentValues.put(userPassword, tempUser.getPassword());
 
         String selection = userId + " LIKE ?";
         String[] selectionArgs = { Integer.toString( id ) };
@@ -175,6 +176,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (count == 1) {
             return tempUser;
+        }
+        else {
+            return null;
+        }
+    }
+
+    //Altering information of the account
+    public Account alterAccount(Account tempAccount) {
+        int id = tempAccount.getAccountId();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(accountName, tempAccount.getAccountName());
+        contentValues.put(accountType, tempAccount.getAccountType());
+        contentValues.put(accountLimit, tempAccount.getAccountLimit());
+
+        String selection = accountId + " LIKE ?";
+        String[] selectionArgs = { Integer.toString( id ) };
+
+        int count = database.update(
+                tableAccounts,
+                contentValues,
+                selection,
+                selectionArgs
+        );
+
+        if (count == 1) {
+            return tempAccount;
         }
         else {
             return null;

@@ -55,6 +55,15 @@ public class AccountInformation extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void changeAccountInformation(View v) {
+        Bundle extras = new Bundle();
+        extras.putSerializable("account", account);
+        extras.putSerializable("user",user);
+        Intent intent = new Intent(getBaseContext(), ChangeAccountInformation.class);
+        intent.putExtras(extras);
+        startActivity(intent);
+    }
+
 
     //The account specific transaction file is being read here and put into a ArrayList of strings
     public ArrayList<String> readAccountFile(String user, String account) {
