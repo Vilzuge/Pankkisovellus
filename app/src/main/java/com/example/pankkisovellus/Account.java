@@ -2,6 +2,8 @@ package com.example.pankkisovellus;
 
 import java.io.Serializable;
 
+
+//Class for the accounts that the user can create
 public class Account implements Serializable {
     private int accountId;
     private int accountHolder;

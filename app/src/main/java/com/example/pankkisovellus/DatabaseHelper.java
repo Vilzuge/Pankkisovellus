@@ -7,16 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.pankkisovellus.User;
-
 import java.util.ArrayList;
 
-
+//DatabaseHelper class that has the actual database commands that are being called at the activities
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
     private static final String databaseName = "database.db";
-
     private static final String tableUsers = "USERS";
     private static final String userId = "USERID";
     private static final String userUsername = "USERNAME";
@@ -53,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database = getWritableDatabase();
     }
 
+    //Creating the necessary tables
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -90,6 +89,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //If the database version increases (changes are being made), drop the tables and start from
+    //scratch
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -101,7 +102,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    //Trying to log the user in with the given information.
+    //Trying to log the user in with the given information. First validating the given information
+    //by comparing it to the databases information.
     public User tryLogging(String signingUsername, String signingPassword) throws SQLException {
         //Creating an empty User object first.
         User user = new User();
@@ -111,7 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 userPassword + "=?", new String[]{signingUsername,signingPassword});
 
         cursor.moveToFirst();
-        if (signingUsername.equals(cursor.getString(cursor.getColumnIndexOrThrow(userUsername))) && signingPassword.equals(cursor.getString(cursor.getColumnIndexOrThrow(userPassword))))  {
+        //If the given password and username matches, create a object of the User and return it
+        //back to the activity
+        if (signingUsername.equals(cursor.getString(cursor.getColumnIndexOrThrow(userUsername))) &&
+                signingPassword.equals(cursor.getString(cursor.getColumnIndexOrThrow(userPassword))))  {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(userId));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(userUsername));
             String password = cursor.getString(cursor.getColumnIndexOrThrow(userPassword));
@@ -133,6 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Creating a new user, duplicates are being checked with isUniqueUser() in the activity
     public boolean newUser (User user) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(userUsername, user.getUserName());
@@ -149,12 +155,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Altering information of the user
     public User alterUser(User tempUser) {
         int id = tempUser.getUserId();
         ContentValues contentValues = new ContentValues();
         contentValues.put(userFirstName, tempUser.getFirstName());
         contentValues.put(userLastName, tempUser.getLastName());
-        contentValues.put(userUsername, tempUser.getUserName());
         contentValues.put(userDOB, tempUser.getDOB());
 
         String selection = userId + " LIKE ?";
@@ -175,6 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Checking if a certain username already exists in the database
     public boolean isUniqueUser(String username) {
         //Figuring out the ID behind the username
         Cursor cursor = database.rawQuery("SELECT * FROM " +
@@ -190,6 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Checking if a certain account already exists in the database
     public boolean isUniqueAccount(String username) {
         //Figuring out the ID behind the username
         Cursor cursor = database.rawQuery("SELECT * FROM " +
@@ -205,6 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //Creating a new account for the user
     public boolean newAccount (Account account) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(accountHolder, account.getAccountHolder());
@@ -222,6 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Creating card for the user to the database
     public boolean orderCard (Account account, String typeofcard) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(cardHolder, account.getAccountHolder());
@@ -237,6 +247,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Fetching accounts for the user from the database
     public ArrayList<Account> fetchUserAccounts (User user) {
         int id = user.getUserId();
         ArrayList<Account> account_array = new ArrayList<Account>();
@@ -258,13 +269,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Depositing or withdrawing money to/from a certain account
     public boolean depositOrWithdraw(User user, Account account, String action, float amount) {
         int id = user.getUserId();
 
         if (action.equals("Withdraw")) {
             amount = amount * (-1);
         }
-
 
         float oldBalance = account.getAccountBalance();
         float newBalance = oldBalance + amount;
@@ -292,6 +303,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Checking if a receiver exists for the payment so the money actually
+    //goes somewhere from the payer
     public boolean receiverExists(String receiverAccount, String receiverUser) {
 
         int receiverId = 0;
@@ -319,6 +332,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Transferring money to a certain account.
+    //
     public void transferMoney(Account account, String receiverAccount, String receiverUser, float amount) {
 
         float payerOldBalance = account.getAccountBalance();
@@ -339,7 +354,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selectionArgs
         );
 
-        //Figuring out the ID behind the username
+        //Figuring out the ID behind the receivers username
         Cursor cursor = database.rawQuery("SELECT * FROM " +
                         tableUsers + " WHERE " +
                         userUsername + "=?",
@@ -360,9 +375,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             receiverOldBalance = cursor.getFloat(cursor.getColumnIndexOrThrow(accountBalance));
             receiverAccountId = cursor.getInt(cursor.getColumnIndexOrThrow(accountId));
         }
-
         receiverNewBalance = receiverOldBalance + amount;
-
 
         //Depositing money to receivers account
         contentValues = new ContentValues();
@@ -375,8 +388,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 selection,
                 selectionArgsReceiver
         );
-
-
-
     }
 }

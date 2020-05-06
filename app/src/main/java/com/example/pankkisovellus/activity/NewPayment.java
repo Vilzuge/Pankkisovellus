@@ -75,8 +75,18 @@ public class NewPayment extends AppCompatActivity {
         float amount = Float.parseFloat(editAmount.getText().toString());
         boolean isUnderLimit = account.getAccountLimit() >= amount;
         boolean receiverExists = databaseHelper.receiverExists(receiverAccount, receiverUser);
+        boolean hasBalance = account.getAccountBalance() > amount;
+        if(!hasBalance) {
+            Toast.makeText(NewPayment.this,"Account does not have enough funds for the payment.", Toast.LENGTH_LONG).show();
+        }
+        if(!receiverExists) {
+            Toast.makeText(NewPayment.this,"Given receiver/receivers account does not exist.", Toast.LENGTH_LONG).show();
+        }
+        if(!isUnderLimit) {
+            Toast.makeText(NewPayment.this,"Amount is over the accounts pay limit.", Toast.LENGTH_LONG).show();
+        }
 
-        if ((account.getAccountBalance() > amount) && receiverExists && isUnderLimit) {
+        if (hasBalance && receiverExists && isUnderLimit) {
             databaseHelper.transferMoney(payerAccount, receiverAccount, receiverUser, amount);
             Toast.makeText(NewPayment.this,"Succesfully transferred the money", Toast.LENGTH_LONG).show();
 
@@ -94,6 +104,8 @@ public class NewPayment extends AppCompatActivity {
         }
     }
 
+    //Writing information about the transfer to separate csv files (for both payer and the receiver)
+    // with the payers username, receivers username and the amount that was transferred.
     public void writeTransferEvent(String payerUser, String receiverUser, String payerAccount, String receiverAccount, float amount) {
         //Payer write
         StringBuilder dataPayer = new StringBuilder();
@@ -124,7 +136,7 @@ public class NewPayment extends AppCompatActivity {
         }
     }
 
-
+    //Printing out a (simulated) receipt of the transaction to a "receipt.csv" file
     public void printReceipt(String payerName,String payerAccount, String receiverAccount, String receiverUser, float amount) {
         StringBuilder data = new StringBuilder();
         data.append("Payer Username: "+payerName+"\nPayer Account: "+payerAccount+"\nReceiver Account: "+receiverAccount+"\nReceiver Username: "+receiverUser+"\nAmount: "+String.valueOf(amount));

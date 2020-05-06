@@ -2,6 +2,8 @@ package com.example.pankkisovellus;
 
 import java.io.Serializable;
 
+
+//Class for the users, has the same information that the user table in the database has.
 public class User implements Serializable {
     private int userId;
     private String userName;

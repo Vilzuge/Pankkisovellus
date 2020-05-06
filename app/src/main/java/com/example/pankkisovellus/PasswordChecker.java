@@ -1,15 +1,14 @@
 package com.example.pankkisovellus;
 
+
+//Class for validating the password strength while creating a account
 public class PasswordChecker {
 
     String password;
-
     public PasswordChecker() {}
-
     public PasswordChecker(String psw) {
         password = psw;
     }
-
     public boolean passwordLength(String psw) {
         if (psw.length() < 12) {
             return false;
@@ -17,7 +16,6 @@ public class PasswordChecker {
             return true;
         }
     }
-
     public boolean passwordNumbers(String psw) {
         int count = 0;
         for (int i = 0; i < psw.length(); i++) {
@@ -32,7 +30,6 @@ public class PasswordChecker {
             return false;
         }
     }
-
     public boolean hasUppercase(String psw) {
         int count = 0;
         for (int i = 0; i < psw.length(); i++) {
@@ -47,7 +44,6 @@ public class PasswordChecker {
             return false;
         }
     }
-
     public boolean isValidPassword(String psw) {
         if(!passwordNumbers(psw)) { return false; }
         if(!passwordLength(psw)) { return false; }
