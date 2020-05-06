@@ -69,11 +69,7 @@ public class ChangeAccountInformation extends AppCompatActivity {
         accName = account.getAccountName();
         accBalance = account.getAccountBalance();
         accType = itemvalue;
-        try {
-            accPayLimit = Float.parseFloat(editAccountLimit.getText().toString());
-        } catch (Exception e) {
-            Toast.makeText(ChangeAccountInformation.this, "Pay limit not in float format.", Toast.LENGTH_LONG).show();
-        }
+        accPayLimit = Float.parseFloat(editAccountLimit.getText().toString());
 
         Account tempAccount = new Account(accId, accHolder, accName, accType, accBalance, accPayLimit);
         if (databaseHelper.alterAccount(tempAccount) != null) {
