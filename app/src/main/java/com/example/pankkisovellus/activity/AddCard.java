@@ -45,7 +45,6 @@ public class AddCard extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 itemvalue = parent.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -53,10 +52,11 @@ public class AddCard extends AppCompatActivity {
         });
     }
 
+    //Simulating ordering a new card for the specific account.
     public void OrderCard(View v) {
         String cardType = itemvalue;
         if (databaseHelper.orderCard(account, cardType)) {
-            Toast.makeText(AddCard.this,"New payment card has been ordered.", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddCard.this,"New card has been ordered.", Toast.LENGTH_LONG).show();
         }
     }
 }

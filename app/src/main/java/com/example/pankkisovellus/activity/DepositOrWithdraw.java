@@ -41,24 +41,22 @@ public class DepositOrWithdraw extends AppCompatActivity {
         spinnerAction = (Spinner) findViewById(R.id.spinnerAction);
         databaseHelper = new DatabaseHelper(DepositOrWithdraw.this);
 
-
         //Configuring the AccountSpinner
         ArrayList<Account> account_array = databaseHelper.fetchUserAccounts(user);
         ArrayAdapter<Account> adapterAccount = new ArrayAdapter<Account>(DepositOrWithdraw.this, android.R.layout.simple_spinner_item, account_array);
         adapterAccount.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAccount.setAdapter(adapterAccount);
+        //Listener for the account spinner
         spinnerAccount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 accountValue = parent.getItemAtPosition(position).toString();
                 account = (Account) parent.getItemAtPosition(position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
 
         //Configuring the ActionSpinner
@@ -68,6 +66,7 @@ public class DepositOrWithdraw extends AppCompatActivity {
         ArrayAdapter<String> adapterAction = new ArrayAdapter<String>(DepositOrWithdraw.this, android.R.layout.simple_spinner_item, list);
         adapterAction.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAction.setAdapter(adapterAction);
+        //Listener for the action spinner
         spinnerAction.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,6 +80,8 @@ public class DepositOrWithdraw extends AppCompatActivity {
         });
     }
 
+    //Executing the wanted action, either withdrawing or depositing the money to the selected
+    //account. Calling databaseHelpers depositOrWithdraw() method
     public void executeAction(View v) {
         float amount = Float.parseFloat(editAmount.getText().toString());
         boolean worked = databaseHelper.depositOrWithdraw(user, account, actionValue, amount);
@@ -101,6 +102,7 @@ public class DepositOrWithdraw extends AppCompatActivity {
     }
 
 
+    //Writing the action information to the accounts transaction information file
     public void writeActionEvent(String myUser, String myAccount, String myAction, float amount) {
         //Write action to file
         StringBuilder myData = new StringBuilder();

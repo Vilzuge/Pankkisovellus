@@ -1,5 +1,7 @@
 package com.example.pankkisovellus;
 
+
+//Class for the cards that can be created for the account
 public class Card {
     private int cardHolder;
     private String cardName;

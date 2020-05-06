@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+//Class for validating dates in account creation / altering
 public class DateChecker {
 
     public DateChecker () { }

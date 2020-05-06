@@ -10,29 +10,30 @@
         android:id="@+id/textOrderAccountName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="48dp"
         android:text="@string/account_header"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="319dp"
-        android:layout_height="387dp"
+        android:layout_width="331dp"
+        android:layout_height="272dp"
+        android:background="#E3F1F1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textOrderAccountName"
-        app:layout_constraintVertical_bias="0.407" />
+        app:layout_constraintVertical_bias="0.52" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="264dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:text="Action / Payer / Receiver / Amount"
         android:textAllCaps="true"
         app:layout_constraintBottom_toTopOf="@+id/listView"
@@ -49,7 +50,18 @@
         android:text="Add card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAccountInfo"
+        android:layout_width="153dp"
+        android:layout_height="56dp"
+        android:onClick="changeAccountInformation"
+        android:text="Change account information"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textOrderAccountName"
+        app:layout_constraintVertical_bias="0.23" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

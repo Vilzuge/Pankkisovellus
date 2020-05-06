@@ -55,6 +55,7 @@ public class CreateNewAccount extends AppCompatActivity {
             }
         });
     }
+    //If back is pressed in "CreateNewAccount"-view, transition back to "Dashboard" by running the view again
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getBaseContext(), Dashboard.class);
@@ -63,6 +64,7 @@ public class CreateNewAccount extends AppCompatActivity {
         finish();
     }
 
+    //Creating a new account for the user by calling databaseHelpers method newAccount()
     public void CreateAccount(View v) {
         int accountId = 0;
         int accountHolder = user.getUserId();
@@ -70,19 +72,26 @@ public class CreateNewAccount extends AppCompatActivity {
         String accountType = itemvalue;
         float accountBalance = 0.0f;
         float accountLimit = Float.parseFloat(editAccountLimit.getText().toString());
+        boolean isValidAccount = databaseHelper.isUniqueAccount(accountHolder, accountName);
+
+        if (!isValidAccount) {
+            Toast.makeText(CreateNewAccount.this,"You already have a account with that name.", Toast.LENGTH_LONG).show();
+        }
+
 
         //Creating the account from the given information.
-        Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
-        boolean worked = databaseHelper.newAccount(account);
-
-        if (worked) {
-            Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getBaseContext(), Dashboard.class);
-            intent.putExtra("user", user);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(CreateNewAccount.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+        if(isValidAccount) {
+            Account account = new Account(accountId, accountHolder, accountName, accountType, accountBalance, accountLimit);
+            boolean worked = databaseHelper.newAccount(account);
+            if (worked) {
+                Toast.makeText(CreateNewAccount.this,"Successfully created an account.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getBaseContext(), Dashboard.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(CreateNewAccount.this,"Creating an account failed.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -27,12 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(LoginActivity.this);
     }
 
+    //If the user provides correct information, log the user in with an object of their "User" information
     public void Login(View w) {
         String userUsername = username.getText().toString();
         String userPassword = password.getText().toString();
         try {
             if (userUsername.length() > 0 && userPassword.length() > 0) {
-
                 user = databaseHelper.tryLogging(userUsername, userPassword);
                 if (user != null) {
                     Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Move to "CreateNewUser" activity if the specific button is being pressed
     public void CreateUser(View v) {
         try {
             Intent intent = new Intent(getBaseContext(), CreateNewUser.class);
