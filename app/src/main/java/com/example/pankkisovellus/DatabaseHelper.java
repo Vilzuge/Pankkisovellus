@@ -186,7 +186,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Account alterAccount(Account tempAccount) {
         int id = tempAccount.getAccountId();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(accountName, tempAccount.getAccountName());
         contentValues.put(accountType, tempAccount.getAccountType());
         contentValues.put(accountLimit, tempAccount.getAccountLimit());
 

@@ -45,10 +45,10 @@
 
     <TextView
         android:id="@+id/textBankName"
-        android:layout_width="171dp"
-        android:layout_height="67dp"
+        android:layout_width="109dp"
+        android:layout_height="32dp"
         android:layout_marginTop="192dp"
-        android:text="@string/rs_b_nk_d"
+        android:text="RSÄ-Bank"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
